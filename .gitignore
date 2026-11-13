@@ -1,0 +1,15 @@
+# ---- 密钥（绝对不能入库）----
+.env
+
+# ---- 虚拟环境 ----
+.venv/
+
+# ---- 大数据文件（GitHub 单文件上限 100MB，且数据不该进 git）----
+# 原始数据与清洗产物通过网盘/数据平台共享，仓库里只放代码和文档
+data/data_export*.csv
+out/*.log
+out/tagging_checkpoint.json
+
+# ---- Python ----
+__pycache__/
+*.pyc
