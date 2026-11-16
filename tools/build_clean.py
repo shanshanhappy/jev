@@ -156,6 +156,14 @@ def denoise(text, st):
             text = text.replace(k, v)
     # 4 URL
     text = _sub(URL_PAT, '', text, '4_URL', st)
+    # 4b markdown 链接残骸: URL 删除后剩下 [文本]( 或 )( 的括号壳
+    text = _sub(re.compile(r'\[([^\[\]\n]{0,80})\]\(\s*\)?'), r'\1', text, '4b_md链接括号', st)
+    text = _sub(re.compile(r'\]\(\s*\)?'), '', text, '4b_md残留括号', st)
+    # 4c 完整 markdown 链接 [文本](xxx) 与悬空 ](xxx
+    text = _sub(re.compile(r'\[([^\[\]\n]{0,80})\]\([^)\n]{0,80}\)'), r'\1', text, '4c_md完整链接', st)
+    text = _sub(re.compile(r'\]\([^)\n]{0,80}\)?'), '', text, '4c_md悬空括号', st)
+    # 4d 孤立半角短括号壳(平台按钮/贴纸如 [求关注]): 去壳留字
+    text = _sub(re.compile(r'\[([^\[\]\n]{1,12})\]'), r'\1', text, '4d_短括号壳', st)
     # 5 @提及
     text = _sub(AT_PAT, '', text, '5_@提及', st)
     # 6 话题符号: 只去符号, 保留文字
@@ -170,11 +178,17 @@ def denoise(text, st):
         before = len(text)
         text = unicodedata.normalize('NFKC', text)
         st.add('7c_花式字体归一', before - len(text) if before > len(text) else 0)
+    # 7d NFKC 会把全角＠归一成@, 归一后补一遍 @提及清理
+    if '@' in text:
+        text = _sub(AT_PAT, '', text, '5b_@提及(归一后)', st)
     # 8 emoji (含 1F000-1F2FF 圈形汉字区块, 已在上一步映射的不会到这里)
     text = _sub(EMOJI, '', text, '8_emoji', st)
     # 8b 星号: 数字之间当作乘号, 其余直接删
     text = _sub(re.compile(r'(?<=[0-9])\s*\*\s*(?=[0-9])'), '\u00D7', text, '8b_星号转乘', st)
     text = _sub(re.compile(r'\*'), '', text, '8b_星号删除', st)
+    # 8b2 星号删除会把 @水***的评论 粘成 @水来了 或留下孤立@: 兜底再清
+    text = _sub(AT_PAT, '', text, '5c_@提及(去星后)', st)
+    text = _sub(re.compile('[@＠]'), '', text, '5d_残留@符号', st)
     # 8c 破折号连用(当项目符号用) 与残留反斜杠
     text = _sub(EMDASH_RUN, '', text, '8c_连续破折号', st)
     text = _sub(re.compile(r'\\'), '', text, '8c_残留反斜杠', st)
@@ -303,9 +317,9 @@ def main():
         out['is_main_post']    = (get('is_main_post') or '').strip()
         out['char_count_raw']  = raw_sum
         out['char_count_full'] = len(full)
-        out['content']         = (get('content') or '')
+        out['content']         = denoise(get('content') or '', st) if do_denoise else (get('content') or '')
         out['full_text']       = full
-        out['topics']          = (get('topics') or '')
+        out['topics']          = denoise(get('topics') or '', st) if do_denoise else (get('topics') or '')
         out['fingerprint']     = (get('fingerprint') or '').strip()
         out['is_ad']           = (get('is_ad') or '').strip()
         out['content_detailed_ad'] = (get('content_detailed_ad') or '').strip()

@@ -1,5 +1,11 @@
 # ---- 密钥（绝对不能入库）----
 .env
+.env.*
+*.key
+# 本地临时测试脚本（易写入明文凭证，不入库）
+tools/testapi.py
+tools/cf_smoke_local.py
+core/platforms.json
 
 # ---- 虚拟环境 ----
 .venv/

@@ -1,0 +1,66 @@
+﻿{
+  "platforms": {
+    "edgeone": {
+      "name": "腾讯云 EdgeOne Makers",
+      "base_url": "https://ai-gateway.edgeone.link",
+      "endpoint_path": "/v1/systemone",
+      "model": "@makers/jev",
+      "api_key": "sk-Vf81ALVnvLzi0IAh0wSDEgxTD_RqeuovK1TepsgbratDFsPwRtInGFQABvw",
+      "max_context": 64000,
+      "free_quota": "50 万 token/月（免费版自动下发）",
+      "note": "★ 推荐先用这个。国内直连、无需代理、免费额度唯一真能用的渠道。A2 约 10 条/月，B 约 277 条/月，Hybrid 约 78 条/月。key 填上面 api_key 字段。"
+    },
+    "official": {
+      "name": "官方 TypeSafe",
+      "base_url": "https://api.typesafe.ai",
+      "endpoint_path": "/v1/systemone",
+      "model": "jev-latest",
+      "api_key": "",
+      "max_context": 64000,
+      "free_quota": "无（2026-09-27 起新注册不赠费）",
+      "note": "官方源头，$0.042/M input，output 免费。协议最干净、无 gateway 坑，正式跑批首选。100 条 A2 约 $0.20。"
+    },
+    "openrouter": {
+      "name": "OpenRouter",
+      "base_url": "https://openrouter.ai",
+      "endpoint_path": "/api/alpha/decisions",
+      "model": "typesafe/jev-1.13",
+      "api_key": "",
+      "max_context": 64000,
+      "free_quota": "无，需先充值",
+      "note": "⚠️ 路径是 /api/alpha/decisions，而 jev_client.py 固定拼 /v1/systemone，当前直接跑会 404。要用需先改 client 支持 endpoint_path。"
+    },
+    "cloudflare": {
+      "name": "Cloudflare Workers AI",
+      "base_url": "https://api.cloudflare.com/client/v4/accounts/PASTE_ACCOUNT_ID_HERE",
+      "endpoint_path": "/ai/run",
+      "model": "typesafe/jev",
+      "api_key": "",
+      "account_id": "",
+      "max_context": 32000,
+      "free_quota": "❌ 免费 Neurons 不覆盖第三方模型；Jev 需充 AI Gateway credits（实测 402 code 2021）",
+      "note": "⚠️ 三重限制：① 需改 client 支持 {model, input:{state,questions}} 包装与顶层 answers 解析；② context 仅 32k，A2/H 超限，只能跑 B/RAG/Hybrid/A1；③ base_url 里的 PASTE_ACCOUNT_ID_HERE 要替换成真实 Account ID。充值时另加 5% 手续费。"
+    },
+    "thejevai": {
+      "name": "Jev AI（第三方站，非官方）",
+      "base_url": "https://thejevai.com",
+      "endpoint_path": "/v1/systemone",
+      "model": "jev-latest",
+      "api_key": "",
+      "max_context": 64000,
+      "free_quota": "Playground 免费（最多 8 问）；API 需 $10 起充 credits",
+      "note": "⚠️ 第三方独立运营，站方自述与 TypeSafe 无隶属/运营/背书关系，底层经 OpenRouter 转发。响应多包一层 data.result.answers。业务数据勿外发。"
+    },
+    "jevmodel": {
+      "name": "jevmodel.org（第三方中文站）",
+      "base_url": "https://jevmodel.org",
+      "endpoint_path": "/v1/systemone",
+      "model": "jev-latest",
+      "api_key": "",
+      "max_context": 64000,
+      "free_quota": "免注册 1 万 token（≈60 次）；登录送 10 万",
+      "note": "⚠️ 第三方代理，自述与 TypeSafe 无关联。仅用于冒烟，勿跑正式业务数据。"
+    }
+  },
+  "default": "edgeone"
+}

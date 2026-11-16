@@ -1,0 +1,30 @@
+﻿平台,注册门槛,免费额度,端点,模型/价格,状态,推荐度
+Cloudflare Workers AI,仅邮箱，不用手机号/信用卡/实名,❌ 免费 Neurons 不覆盖 Jev（仅限 @cf/ 自家模型）；实测 HTTP 402 code 2021,accounts/{ACCOUNT_ID}/ai/run,typesafe/jev，输入 $0.042/M（买 credits 另加 5% 手续费）,零数据留存；context 仅 32k；充值后可能需手动建 gateway 设 Unified Billing,需付费，不推荐
+腾讯云 EdgeOne Makers,腾讯云账号，免费版自动下发,50 万 token/月,https://ai-gateway.edgeone.link/v1/systemone,@makers/jev,官方文档 2026-11-12 更新，国内直连,首选（国内最稳）
+TypeSafe 官方,邮箱，5 分钟,无赠费（9/27 起取消）；Playground 免费试玩,https://api.typesafe.ai/v1/systemone,jev-latest，$0.042/M,官方源头，可用 Playground 对照响应结构,对照基准
+OpenRouter,邮箱,无免费层，需先充值,https://openrouter.ai/api/alpha/decisions,typesafe/jev-1.13，$0.042/M,路径与原生协议不同,正式测试可用
+Vercel AI Gateway,必须绑国际信用卡（customer_verification_required）,声称 $5/月，不绑卡即为 $0,网关路由,typesafe-ai/jev-1.14.0，$0.04/M,免费层实测 131 问耗时 1.5 小时；充值即失去月免费额度,已排除
+OpenCode Zen,—,已下架,—,—,11-15 复核 86 个模型中无 jev,已排除
+jevmodel.org（第三方中文站）,免注册,1 万 token（≈60 次）；登录送 10 万,https://jevmodel.org/v1/systemone,协议与官方一致,站方自述与 TypeSafe 无关联，业务数据勿发,仅限冒烟
+jev-api.org（第三方英文站）,邮箱,无免费额度,自有 /api/v1/decisions；兼容 /v1/systemone,按次计费，模型停在 jev-1.13,1~256 问，按次比按 token 划算,备选
+Cloudflare AI Gateway,—,无独立额度（BYOK）,—,—,与 Workers AI 是两回事，勿混,不推荐
+,,,,,,
+【免费额度能跑多少条】单帖 token 实测：B=1804 / RAG=3834 / Hybrid=6391 / A1=26059 / A2=48449 / H=51057,,,,,,
+方案,单帖 token,EdgeOne 50万/月,Cloudflare 免费额度,100条付费成本,,
+B,"1,804",277 条/月 ✅,❌ 不覆盖,$0.008（≈¥0.06）,,
+RAG,"3,834",130 条/月 ⚠️,❌ 不覆盖,$0.02（≈¥0.13）,,
+Hybrid,"6,391",78 条/月 ⚠️,❌ 不覆盖,$0.03（≈¥0.20）,,
+A2,"48,449",10 条/月 ❌,❌ 不覆盖,$0.20（≈¥1.5）,,
+H,"51,057",10 条/月 ❌,❌ 不覆盖,$0.21（≈¥1.6）,,
+,,,,,,
+【结论】唯一真免费的只有腾讯云 EdgeOne（50 万 token/月），只够跑 10 条 A2。Cloudflare 免费 Neurons 不含第三方模型，Jev 必须充 AI Gateway credits；且充值后若 default gateway 的 wholesale=false 仍报 402，需手动建 gateway 设 Unified Billing,,,,,,
+,,,,,,
+【技术限制】项,数值,说明,,,,
+单请求 context,64k tokens,state + 所有 questions 合计,,,,
+单问题 context,32k tokens,state + 单个 question,,,,
+Long context,262k tokens,需 header TypeSafe-Danger-Zone-Long-Context: true,,,,
+questions 数量,无上限,只受 context 限制，可一次性塞入全部维度,,,,
+单个 Choice 选项数,最多 255 个,够覆盖单维度全部标签,,,,
+计费,仅 input,$0.042/M tokens，output 免费,,,,
+模型版本,jev-1.14.0 / jev-1.13.0,别名 jev-latest 指向 1.14.0,,,,
+Cloudflare 侧 context,"32,000 tokens",比官方 64k 低一半，A2 的 48k 在 Cloudflare 上会超限 ⚠️,,,,

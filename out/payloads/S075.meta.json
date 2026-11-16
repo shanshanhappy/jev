@@ -1,0 +1,1 @@
+{"est_tokens": 3700, "n_q": 32, "truncated": true, "csv_row_no": 876, "id": "5348260794864255", "site_name": "微博", "url": "http://weibo.com/5993355049/RkftZkppJ", "publish_time": "2026-09-28 23:10:02", "char_count_raw": 2224, "char_count_full": 2217, "reason": "平台内按文本长度四分层随机抽样", "sample": "S075", "scheme": "B", "chunks": 1}
