@@ -3,21 +3,27 @@ r"""jev_client.py  Jev API 客户端
 读取 out/payloads/*.jsonl, 逐条POST到Jev API, 结果写入 out/raw/*.jsonl
 支持 --scheme 参数过滤指定方案的请求
 """
-import argparse, json, os, sys, time, urllib.request, urllib.error
+import argparse, glob, json, os, sys, time, urllib.request, urllib.error
 from datetime import datetime
 
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAYLOAD_DIR = os.path.join(ROOT, 'out', 'payloads')
 RAW_DIR = os.path.join(ROOT, 'out', 'raw')
+from flow_rules import apply_dynamic_filter
 
 
-def post_once(base, key, body, timeout, long_context=False):
-    url = base.rstrip('/') + '/v1/systemone'
+def post_once(base, key, body, timeout, long_context=False, endpoint='/v1/systemone'):
+    # endpoint 必须可配: 官方是 /v1/systemone, OpenRouter 也有 /v1/systemone(同一协议),
+    # 另提供 /alpha/decisions。此前这里写死 /v1/systemone, platforms.json 的 endpoint_path 成了死配置。
+    url = base.rstrip('/') + (endpoint or '/v1/systemone')
     data = json.dumps(body, ensure_ascii=False).encode('utf-8')
     req = urllib.request.Request(url, data=data, method='POST')
     req.add_header('Authorization', 'Bearer ' + key)
     req.add_header('Content-Type', 'application/json')
+    # OpenRouter 排行榜用的可选头, 官方会忽略, 不影响结果
+    req.add_header('HTTP-Referer', 'https://github.com/local/jev-batch')
+    req.add_header('X-Title', 'jev-batch')
     if long_context:
         req.add_header('TypeSafe-Danger-Zone-Long-Context', 'true')
     t0 = time.time()
@@ -46,6 +52,28 @@ def _int(v):
         return int(v)
     except (TypeError, ValueError):
         return 0
+
+
+def _answers_of(resp):
+    """取出答案字典。官方返回 answers; OpenRouter 的 decisions 端点若换了外层键名也能兜住。"""
+    if not isinstance(resp, dict):
+        return {}
+    for k in ('answers', 'decisions', 'results'):
+        v = resp.get(k)
+        if isinstance(v, dict):
+            return v
+    return {}
+
+
+def _usage_of(resp):
+    """统一 usage 口径: 官方给 input_tokens/output_tokens, OpenAI 风格给 prompt_tokens/completion_tokens。"""
+    u = (resp or {}).get('usage') if isinstance(resp, dict) else None
+    if not isinstance(u, dict):
+        return {'input_tokens': 0, 'output_tokens': 0}
+    return {
+        'input_tokens': _int(u.get('input_tokens', u.get('prompt_tokens'))),
+        'output_tokens': _int(u.get('output_tokens', u.get('completion_tokens'))),
+    }
 
 
 def _count_hit(raw_ans, threshold):
@@ -111,7 +139,7 @@ def print_summary(recs, threshold, price_per_m=0.042):
 
 def main():
     ap = argparse.ArgumentParser()
-    g = ap.add_mutually_exclusive_group(required=True)
+    g = ap.add_mutually_exclusive_group(required=False)
     g.add_argument('--payload', help='单个 jsonl 文件')
     g.add_argument('--dir', help='payload 目录(配合 --samples)')
     ap.add_argument('--samples', default='', help='逗号分隔; --dir 模式必填')
@@ -121,6 +149,11 @@ def main():
     ap.add_argument('--base', default=os.environ.get('JEV_BASE_URL', 'https://api.typesafe.ai'))
     ap.add_argument('--key', default=os.environ.get('JEV_API_KEY', ''))
     ap.add_argument('--model', default='jev-latest')
+    ap.add_argument('--endpoint', default='',
+                    help='接口路径; 空=用平台配置的 endpoint_path(默认 /v1/systemone)。'
+                         'OpenRouter 也可用 /alpha/decisions')
+    ap.add_argument('--selftest', action='store_true',
+                    help='只发 1 个最小请求并把完整响应打出来, 用来验证 key/端点/解析, 花费约 0.0001 美元')
     ap.add_argument('--sleep', type=float, default=0.2)
     ap.add_argument('--retry', type=int, default=3)
     ap.add_argument('--timeout', type=int, default=120)
@@ -138,6 +171,10 @@ def main():
                          '官方 api.typesafe.ai 对中国大陆返回 451, 需走代理; '
                          '留空则沿用系统环境变量')
     a = ap.parse_args()
+
+    # --selftest 不需要 payload, 其余模式必须给 --payload 或 --dir
+    if not a.selftest and not (a.payload or a.dir):
+        ap.error('one of the arguments --payload --dir is required')
 
     if a.proxy:
         for k in ('http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY'):
@@ -184,9 +221,33 @@ def main():
             a.key = p['api_key']
         if a.model == 'jev-latest':
             a.model = p.get('model', 'jev-latest')
+        if not a.endpoint:
+            a.endpoint = p.get('endpoint_path', '/v1/systemone')
         print('使用平台配置: %s (%s)' % (a.platform, p['name']))
+        print('  端点: %s%s   模型: %s' % (a.base.rstrip('/'), a.endpoint, a.model))
+    if not a.endpoint:
+        a.endpoint = '/v1/systemone'
     if not a.dry_run and not a.key:
         print('!! 缺少 API key: 设 $env:JEV_API_KEY 或 --key (或用 --dry-run)')
+        return 1
+
+    if a.selftest:
+        # 最小成本验证: 1 帖 1 问, 约 60 tok, 花费可忽略。响应原样打印, 便于确认解析字段。
+        body = {'model': a.model,
+                'state': '这款双抗精华我用了两个月, 皮肤明显透亮, 已经回购第三次了。',
+                'questions': {'q0001': {'type': 'noul',
+                                        'instructions': '原文是否明确表达「回购」？只有原文有对应表述才算。'}}}
+        print('\n[selftest] POST %s%s' % (a.base.rstrip('/'), a.endpoint))
+        print('[selftest] model=%s 问题=1' % a.model)
+        http, resp, ms = post_once(a.base, a.key, body, a.timeout, a.long_context, a.endpoint)
+        print('[selftest] http=%s  %sms' % (http, ms))
+        print('[selftest] 响应:\n%s' % json.dumps(resp, ensure_ascii=False, indent=2)[:2000])
+        ans = _answers_of(resp)
+        if http == 200 and ans:
+            print('[selftest] ✅ 解析到 %d 个答案: %s' % (len(ans), list(ans.keys())[:5]))
+            print('[selftest] usage: %s' % _usage_of(resp))
+            return 0
+        print('[selftest] ❌ 没解析到 answers, 检查上面的响应结构')
         return 1
 
     files = []
@@ -200,23 +261,46 @@ def main():
             if not ss:
                 print('!! --dir 模式请用 --samples S001,S002 或 --all')
                 return 1
-            files = [os.path.join(a.dir, x + '.jsonl') for x in ss]
+            # 产物命名是 {样本}__{方案}__{模式}.jsonl, 一个样本可能有多个方案/多个块。
+            # 旧版按 {样本}.jsonl 拼路径(那是已删除的 jev_prompts.py 的命名), 对现有产物
+            # 必然 FileNotFoundError, 故改为按前缀匹配, 并保留旧命名兜底。
+            files, missing = [], []
+            for x in ss:
+                cand = sorted(glob.glob(os.path.join(a.dir, x + '__*.jsonl')))
+                if not cand:
+                    old = os.path.join(a.dir, x + '.jsonl')
+                    cand = [old] if os.path.exists(old) else []
+                if not cand:
+                    missing.append(x)
+                files.extend(cand)
+            if missing:
+                print('!! 目录 %s 下找不到这些样本的请求体: %s' % (a.dir, ', '.join(missing)))
+            if not files:
+                return 1
 
     # 过滤方案
     if a.scheme:
         scheme_lower = a.scheme.lower()
         filtered = []
         for fp in files:
-            for ln in open(fp, encoding='utf-8'):
-                p = json.loads(ln)
-                if p.get('scheme', '').lower() == scheme_lower:
-                    filtered.append(fp)
-                    break
+            with open(fp, encoding='utf-8') as _f:
+                for ln in _f:
+                    p = json.loads(ln)
+                    if p.get('scheme', '').lower() == scheme_lower:
+                        filtered.append(fp)
+                        break
         files = filtered
         print('过滤方案=%s: %d个文件' % (a.scheme, len(files)))
+        if not files:
+            print('!! 没有文件匹配方案 %s —— 检查 --scheme 拼写, 或 --dir 是否指向了别的方案目录' % a.scheme)
+            return 1
 
     outdir = os.path.abspath(a.raw_dir) if a.raw_dir else os.path.join(ROOT, 'out', 'raw')
     os.makedirs(outdir, exist_ok=True)
+    # 每次客户端执行一个批次号；多阶段方案只按本批第一阶段响应筛选，
+    # 下游也只取每样本/阶段最新批次，防止旧候选在新结果里残留。
+    run_id = datetime.now().strftime('%Y%m%dT%H%M%S') + '_%d' % os.getpid()
+    stage_answers = {}
     print('原始响应目录: %s' % outdir)
     total_ok = total_err = 0
     recs = []       # 本批记录，供 print_summary 统计
@@ -225,40 +309,85 @@ def main():
     for fp in files:
         if not os.path.exists(fp):
             print('跳过(不存在):', fp); continue
-        for ln in open(fp, encoding='utf-8'):
+        with open(fp, encoding='utf-8') as _f:
+          for ln in _f:
             p = json.loads(ln)
             # 方案过滤(行级)
             if a.scheme and p.get('scheme', '').lower() != scheme_lower:
                 continue
             
-            body = {'model': a.model, 'state': p['state'], 'questions': p['questions']}
             est = p.get('meta', {}).get('est_tokens', 0)
             if a.dry_run:
-                print('[dry] %s scheme=%s stage=%s chunk=%s/%s 问题=%d 估tok=%d -> POST %s/v1/systemone'
-                      % (p['sample'], p.get('scheme', '-'), p.get('stage', '-'), p['chunk'], p['nchunks'], len(p['questions']), est, a.base))
+                print('[dry] %s scheme=%s stage=%s chunk=%s/%s 问题=%d 估tok=%d -> POST %s%s'
+                      % (p['sample'], p.get('scheme', '-'), p.get('stage', '-'), p['chunk'], p['nchunks'], len(p['questions']), est, a.base, a.endpoint))
                 dry_n += 1
                 dry_q += len(p['questions'])
                 dry_est += est
                 continue
+
+            # H 的 leaf / Speculative 的 pass2 必须在这里按本批第一阶段概率裁剪。
+            # dry-run 没有真实概率，只展示候选上限，不假装已经完成动态筛选。
+            sample_flow = stage_answers.setdefault(p['sample'], {})
+            questions, flow_info = apply_dynamic_filter(p, sample_flow)
+            # 输出路径 == 输入请求体路径时, 'a' 会把响应追加进请求体文件,
+            # 循环继续读该文件时会把响应行当请求行解析 -> KeyError: 'state'。
+            # 必须在发请求之前拦，否则白花一次调用。
+            of = os.path.join(outdir, '%s__%s__%s.jsonl' % (p['sample'], p.get('scheme', ''), p['mode']))
+            if os.path.abspath(of) == os.path.abspath(fp):
+                print('!! 输出与输入是同一个文件(%s)，请换 --raw-dir' % of)
+                return 1
+            if not questions:
+                rec = {'sample': p['sample'], 'mode': p['mode'], 'stage': p.get('stage', 'leaf'),
+                       'scheme': p.get('scheme', ''), 'chunk': p['chunk'], 'nchunks': p['nchunks'],
+                       'qstyle': p.get('meta', {}).get('qstyle', ''), 'run_id': run_id,
+                       'ts': datetime.now().isoformat(timespec='seconds'), 'http': 200, 'skipped': True,
+                       'latency_ms': 0, 'est_tokens': 0, 'base': a.base, 'sent_model': a.model,
+                       'flow': flow_info,
+                       'body': {'model': a.model, 'answers': {}, 'usage': {'input_tokens': 0, 'output_tokens': 0}}}
+                with open(of, 'a', encoding='utf-8') as f:
+                    f.write(json.dumps(rec, ensure_ascii=False) + '\n')
+                print('SKIP %s scheme=%s stage=%s c%s/%s: 动态筛选后0问 (%s)'
+                      % (p['sample'], p.get('scheme', '-'), p.get('stage', '-'), p['chunk'], p['nchunks'], flow_info))
+                continue
+            body = {'model': a.model, 'state': p['state'], 'questions': questions}
+
             http, resp, ms = None, None, None
             for attempt in range(1, a.retry + 1):
-                http, resp, ms = post_once(a.base, a.key, body, a.timeout, a.long_context)
+                http, resp, ms = post_once(a.base, a.key, body, a.timeout, a.long_context, a.endpoint)
                 if http == 200 or http not in (0, 429, 500, 502, 503, 504):
                     break
                 wait = 2 ** attempt
                 print('  %d 重试%d/%d (等%ds): %s' % (http, attempt, a.retry, wait, str(resp)[:120]))
                 time.sleep(wait)
+
+            # 统一响应口径后再落盘: 评测端只认 body.answers / body.usage.input_tokens,
+            # 不同网关(prompt_tokens / decisions 外层)会静默算成 0 分, 这里一次补齐。
+            if http == 200 and isinstance(resp, dict):
+                if not isinstance(resp.get('answers'), dict):
+                    _a = _answers_of(resp)
+                    if _a:
+                        resp['answers'] = _a
+                _u = _usage_of(resp)
+                if not isinstance(resp.get('usage'), dict):
+                    resp['usage'] = _u
+                else:
+                    resp['usage'].setdefault('input_tokens', _u['input_tokens'])
+                    resp['usage'].setdefault('output_tokens', _u['output_tokens'])
             
             rec = {'sample': p['sample'], 'mode': p['mode'], 'stage': p.get('stage', 'leaf'), 'scheme': p.get('scheme', ''),
-                   'chunk': p['chunk'], 'nchunks': p['nchunks'],
+                   'chunk': p['chunk'], 'nchunks': p['nchunks'], 'run_id': run_id, 'flow': flow_info,
+                   # 措辞版本必须跟着响应落盘：payload 里记了 qstyle, 但 raw 不记的话
+                   # 评测端无从判断这批概率是 v2 还是 v3 产出的, 混批会静默算错指标
+                   'qstyle': p.get('meta', {}).get('qstyle', ''),
                    'ts': datetime.now().isoformat(timespec='seconds'), 'http': http, 'latency_ms': ms,
                    'est_tokens': est, 'base': a.base, 'sent_model': a.model, 'body': resp}
-            of = os.path.join(outdir, '%s__%s__%s.jsonl' % (p['sample'], p.get('scheme', ''), p['mode']))
             with open(of, 'a', encoding='utf-8') as f:
                 f.write(json.dumps(rec, ensure_ascii=False) + '\n')
-            usage = resp.get('usage', {}) if isinstance(resp, dict) else {}
-            ans = resp.get('answers', {}) if isinstance(resp, dict) else {}
+            usage = _usage_of(resp)
+            ans = _answers_of(resp)
             ok = http == 200
+            if ok:
+                sample_flow.setdefault(p.get('stage', 'leaf'), {}).update(ans)
             total_ok += 1 if ok else 0
             total_err += 0 if ok else 1
             recs.append({
@@ -291,7 +420,7 @@ def main():
                               '样本数': len({r['sample'] for r in recs}),
                               'input_tokens合计': sum(r['in_tok'] for r in recs),
                               'output_tokens合计': sum(r['out_tok'] for r in recs),
-                              '平台': a.platform or 'default',
+                              '平台': a.platform or 'default', 'run_id': run_id,
                               'model': a.model or '-',
                               '阈值': a.threshold if a.threshold is not None else 'DEFAULT'})
     except Exception as _e:

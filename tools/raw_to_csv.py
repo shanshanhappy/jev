@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """把 out/raw/*.jsonl 的原始响应整理成可读 CSV。
 
 输出三份：
@@ -55,9 +55,12 @@ def load_payload_questions(payload_dir=None):
         name = os.path.basename(fp)[:-6]
         parts = name.split('__')
         if len(parts) == 3:
-            key = (parts[0], parts[1], parts[2])
+            key = (parts[0], parts[1], parts[2], 'leaf')
+        elif len(parts) == 4:
+            # 多阶段：{样本}__{方案}__{模式}__{阶段}.jsonl
+            key = (parts[0], parts[1], parts[2], parts[3])
         elif len(parts) == 1:
-            key = (parts[0], '', '')
+            key = (parts[0], '', '', 'leaf')
         else:
             continue
         qs = {}
@@ -140,24 +143,80 @@ def export(raw=None, threshold=None, outdir=None, quiet=False, top_n=8,
     labels = load_labels()
     pqs = load_payload_questions(payload_dir)
 
-    # 同一 (样本, 方案, 模式, 分块) 若被重跑多次，只保留最后一条，避免明细表出现重复行
-    latest = {}
+    # 同一 (样本, 方案, 模式, 阶段, 分块) 若被重跑多次，只保留最后一条。
+    # 新客户端带 run_id：每样本/阶段只取最新完整批次，避免上一轮候选残留。
+    all_records = []
     for fp in files:
         with open(fp, encoding='utf-8') as f:
             for line in f:
-                if not line.strip():
-                    continue
-                r = json.loads(line)
-                key = (r.get('sample'), r.get('scheme'), r.get('mode'), r.get('chunk'))
-                latest[key] = r
-    records = sorted(latest.values(), key=lambda r: (str(r.get('sample')), str(r.get('scheme')), r.get('chunk') or 0))
+                if line.strip():
+                    all_records.append(json.loads(line))
+    latest_run = {}
+    for r in all_records:
+        rid = r.get('run_id')
+        if not rid:
+            continue
+        group = (r.get('sample'), r.get('scheme'), r.get('mode'), r.get('stage', 'leaf'))
+        if group not in latest_run or str(r.get('ts', '')) >= latest_run[group][0]:
+            latest_run[group] = (str(r.get('ts', '')), rid)
+    latest = {}
+    for r in all_records:
+        group = (r.get('sample'), r.get('scheme'), r.get('mode'), r.get('stage', 'leaf'))
+        if group in latest_run and r.get('run_id') != latest_run[group][1]:
+            continue
+        key = group + (r.get('chunk'),)
+        latest[key] = r
+    records = sorted(latest.values(), key=lambda r: (str(r.get('sample')), str(r.get('scheme')),
+                                                       str(r.get('stage', 'leaf')), r.get('chunk') or 0))
+
+    # 多阶段交付结果合并：H 只保留叶子 qid（类别仅作门控），Speculative 的
+    # pass2 覆盖 pass1；usage/耗时仍合计所有阶段。raw JSON 继续保留原始逐阶段记录。
+    grouped = {}
+    for r in records:
+        key = (r.get('sample'), r.get('scheme'), r.get('mode'))
+        grouped.setdefault(key, []).append(r)
+    merged_records = []
+    for (sample, scheme, mode), group in grouped.items():
+        if scheme not in ('H', 'Speculative'):
+            merged_records.extend(group)
+            continue
+        stage_rank = {'gate_cat': 0, 'pass1': 0, 'leaf': 1, 'pass2': 1}
+        group.sort(key=lambda r: (stage_rank.get(r.get('stage', 'leaf'), 2), r.get('chunk') or 0))
+        answers = {}
+        answer_stages = {}
+        usage = {'input_tokens': 0, 'output_tokens': 0}
+        latency = 0
+        for r in group:
+            body = r.get('body') if isinstance(r.get('body'), dict) else {}
+            for qid, answer in (body.get('answers') or {}).items():
+                if qid.startswith('q') and qid[1:].isdigit():
+                    answers[qid] = answer
+                    answer_stages[qid] = r.get('stage', 'leaf')
+            u = body.get('usage') or {}
+            usage['input_tokens'] += int(u.get('input_tokens') or 0)
+            usage['output_tokens'] += int(u.get('output_tokens') or 0)
+            latency += int(r.get('latency_ms') or 0)
+        last = dict(group[-1])
+        body = dict(last.get('body') or {})
+        body['answers'] = answers
+        body['usage'] = usage
+        last['body'] = body
+        last['latency_ms'] = latency
+        last['source_stages'] = list(dict.fromkeys(r.get('stage', 'leaf') for r in group))
+        last['answer_stages'] = answer_stages
+        last['stage'] = 'final'
+        last['chunk'] = 1
+        last['nchunks'] = 1
+        last['skipped'] = all(r.get('skipped', False) for r in group)
+        merged_records.append(last)
+    records = merged_records
 
     detail, full, overview = [], [], []
     for r in records:
         body = r.get('body') if isinstance(r.get('body'), dict) else {}
         ans = body.get('answers') or {}
         usage = body.get('usage') or {}
-        qmap = pqs.get((r.get('sample'), r.get('scheme'), r.get('mode')), {})
+        qmap = pqs.get((r.get('sample'), r.get('scheme'), r.get('mode'), r.get('stage', 'leaf')), {})
 
         hits = 0
         angle_prob = {}   # TOPIC ANGLE -> 最高命中概率（同名标签去重）
@@ -186,7 +245,12 @@ def export(raw=None, threshold=None, outdir=None, quiet=False, top_n=8,
                     pv = num if num is not None else 1.0
                     if pv > angle_prob.get(name, -1.0):
                         angle_prob[name] = pv
-            qdef = qmap.get(qid) or {}
+            if r.get('stage') == 'final':
+                answer_stage = (r.get('answer_stages') or {}).get(qid, 'leaf')
+                stage_qmap = pqs.get((r.get('sample'), r.get('scheme'), r.get('mode'), answer_stage), {})
+                qdef = stage_qmap.get(qid) or {}
+            else:
+                qdef = qmap.get(qid) or {}
             row = {
                 '样本': r.get('sample', ''),
                 '方案': r.get('scheme', ''),

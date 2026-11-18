@@ -4,7 +4,7 @@ build_clean.py -- 社媒原始数据清洗（47 列 -> 19 列 + full_text 去噪
 方案文档: docs\数据处理方案.md
 
 用法:
-  python tools\build_clean.py                         # v2 -> v3, 全量
+  python tools\build_clean.py                         # data_export.csv -> data_export_clean_v3.csv, 全量
   python tools\build_clean.py --limit 100             # 只跑前 100 行(快速验证)
   python tools\build_clean.py --no-denoise            # 只做列处理, 不去噪(对比用)
   python tools\build_clean.py --in  data\xxx.csv --out data\yyy.csv
@@ -18,7 +18,9 @@ csv.field_size_limit(10 * 1024 * 1024)
 
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT      = os.path.dirname(TOOLS_DIR)   # 脚本在 tools\ 下, 项目根目录在上一层
-DEFAULT_IN  = os.path.join(ROOT, 'data', 'data_export_clean_v2.csv')
+# 默认输入=原始导出(47列, 唯一真本, 只读)。历史上曾指向 data_export_clean_v2.csv,
+# 但 v2 是未入库的中间产物, 本机已不存在 -> 直接吃原始文件, 与 docs/数据处理方案.md §S1 一致
+DEFAULT_IN  = os.path.join(ROOT, 'data', 'data_export.csv')
 DEFAULT_OUT = os.path.join(ROOT, 'data', 'data_export_clean_v3.csv')
 REPORT      = os.path.join(ROOT, 'docs', 'clean_report.txt')
 
@@ -235,7 +237,15 @@ def main():
 
     for pth in (a.inp,):
         if not os.path.exists(pth):
-            print('!! 找不到输入文件: %s' % pth); return 1
+            print('!! 找不到输入文件: %s' % pth)
+            d = os.path.dirname(pth) or '.'
+            if os.path.isdir(d):
+                cand = sorted(x for x in os.listdir(d) if x.lower().endswith('.csv'))
+                if cand:
+                    print('   该目录下现有 csv: %s' % ', '.join(cand[:8]))
+            print('   默认输入应为 data\\data_export.csv; 也可显式指定: '
+                  '--in data\\data_export.csv')
+            return 1
     os.makedirs(os.path.dirname(a.outp) or '.', exist_ok=True)
 
     print('=' * 74)

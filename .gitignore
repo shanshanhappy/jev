@@ -1,4 +1,4 @@
-# ---- 密钥（绝对不能入库）----
+﻿# ---- 密钥（绝对不能入库）----
 .env
 .env.*
 *.key
@@ -6,6 +6,7 @@
 tools/testapi.py
 tools/cf_smoke_local.py
 core/platforms.json
+.vscode/
 
 # ---- 虚拟环境 ----
 .venv/
@@ -19,3 +20,15 @@ out/tagging_checkpoint.json
 # ---- Python ----
 __pycache__/
 *.pyc
+
+# RAG 向量缓存（派生数据，不入库）
+out/rag_embedding_cache.json
+
+# agent相关内容
+.workbuddy/
+
+
+# 大文件超过100MB - 不提交到git
+back/out/raw1000/A2/打标明细_全量.csv
+out/raw_A1/打标明细_全量.csv
+out/raw_Speculative_1000/打标明细_全量.csv

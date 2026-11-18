@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
-"""
+r"""
 零依赖 xlsx -> CSV 拆分工具（仅用 Python 标准库）
 
 用法:
-    python xlsx_to_csv.py <input.xlsx> [output_dir]
+    python tools\xlsx_to_csv.py <input.xlsx>             # 输出到 xlsx 所在目录
+    python tools\xlsx_to_csv.py <input.xlsx> <输出目录>  # 显式指定输出目录
+    python tools\xlsx_to_csv.py <input.xlsx> --out <输出目录>
 
-默认把每个 sheet 导出为 <原文件名>_<sheet名>.csv，放在源文件同目录。
+注意: 输出落在 **源文件所在目录**，不是当前终端目录。
+      想在项目任意位置运行，脚本路径可用绝对路径:
+      python D:\Work\Modle\tools\xlsx_to_csv.py D:\Work\Modle\data\xxx.xlsx
+
+默认把每个 sheet 导出为 <原文件名>_<sheet名>.csv。
 输出为 UTF-8 BOM 编码，Excel 直接双击打开不乱码。
 
 支持: 共享字符串 / 富文本 / 内联字符串 / 数字 / 布尔 / 错误值 /
@@ -168,7 +174,13 @@ def convert(xlsx_path, output_dir=None):
     os.makedirs(output_dir, exist_ok=True)
     stem = os.path.splitext(os.path.basename(xlsx_path))[0]
 
-    with zipfile.ZipFile(xlsx_path) as z:
+    try:
+        zf = zipfile.ZipFile(xlsx_path)
+    except zipfile.BadZipFile:
+        raise SystemExit(
+            "!! 这个文件不是有效的 xlsx（可能仍是 .xls 老格式、下载未完成，或被 Excel 加密）\n"
+            "   文件: %s" % xlsx_path)
+    with zf as z:
         shared = read_shared_strings(z)
         date_xfs = read_date_styles(z)
 
@@ -194,16 +206,76 @@ def convert(xlsx_path, output_dir=None):
             out_path = os.path.join(output_dir, filename)
             with open(out_path, "w", encoding="utf-8-sig", newline="") as f:
                 csv.writer(f).writerows(rows)
-            outputs.append((name, out_path, len(rows), len(rows[0]) if rows else 0))
-            print("  [OK] %-16s -> %s  (%d 行 x %d 列)" % (name, filename, len(rows), len(rows[0]) if rows else 0))
+            ncol = len(rows[0]) if rows else 0
+            outputs.append((name, out_path, len(rows), ncol))
+            print("  [OK] %-16s -> %s  (%d 行 x %d 列)" % (name, filename, len(rows), ncol))
+            # 表头定位: 首个「本行与下一行都 >=2 列有值」的行视为表头。
+            # 这类导出常在表头前放 1~2 行大标题/说明，下游按列名取值会踩空。
+            hdr = 1
+            for i in range(min(4, len(rows) - 1)):
+                c0 = sum(1 for x in rows[i] if str(x).strip())
+                c1 = sum(1 for x in rows[i + 1] if str(x).strip())
+                if c0 >= 2 and c1 >= 2:
+                    hdr = i + 1
+                    break
+            if hdr > 1:
+                print("       ! 前 %d 行是标题/说明，真正表头在第 %d 行"
+                      "（下游按列名读需 skiprows=%d）" % (hdr - 1, hdr, hdr - 1))
     return outputs
+
+
+def parse_args(argv):
+    src, dst = None, None
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a in ("-h", "--help"):
+            print(__doc__)
+            sys.exit(0)
+        elif a in ("--out", "-o"):
+            if i + 1 >= len(argv):
+                raise SystemExit("!! --out 后面要跟输出目录")
+            dst = argv[i + 1]
+            i += 2
+        elif src is None:
+            src = a
+            i += 1
+        elif dst is None:
+            dst = a
+            i += 1
+        else:
+            raise SystemExit("!! 参数太多: %s（用法见 --help）" % a)
+    return src, dst
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)
-    src = sys.argv[1]
-    dst = sys.argv[2] if len(sys.argv) > 2 else None
-    print("源文件: %s" % src)
-    convert(src, dst)
+    src, dst = parse_args(sys.argv[1:])
+    if not src:
+        raise SystemExit("!! 没给输入文件。用法: python tools\\xlsx_to_csv.py <input.xlsx> [输出目录]")
+
+    # 输入体检：路径错/文件不存在时给能看懂的话，而不是 zipfile 的 traceback
+    if not os.path.exists(src):
+        print("!! 找不到输入文件: %s" % src)
+        print("   当前终端目录: %s" % os.getcwd())
+        d = os.path.dirname(os.path.abspath(src))
+        if os.path.isdir(d):
+            cand = sorted(x for x in os.listdir(d) if x.lower().endswith((".xlsx", ".xlsm")))
+            if cand:
+                print("   该目录下现有 xlsx: %s" % ", ".join(cand[:6]))
+            else:
+                print("   该目录下没有任何 .xlsx 文件")
+        print("   检查: 文件名有无多余空格、是否含中文全角括号、是否还没下载完")
+        sys.exit(2)
+    if os.path.isdir(src):
+        raise SystemExit("!! 这是个目录不是文件: %s" % src)
+    if os.path.splitext(src)[1].lower() not in (".xlsx", ".xlsm"):
+        print("   提醒: 扩展名不是 .xlsx/.xlsm，老版 .xls 不支持，请先另存为 .xlsx")
+
+    print("源文件: %s" % os.path.abspath(src))
+    outs = convert(src, dst)
+    out_dir = os.path.dirname(outs[0][1]) if outs else (dst or os.path.dirname(os.path.abspath(src)))
+    print("输出目录: %s" % os.path.abspath(out_dir))
+    print("共导出 %d 个 sheet，合计 %d 行" % (len(outs), sum(o[2] for o in outs)))
