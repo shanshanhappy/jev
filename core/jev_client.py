@@ -144,7 +144,7 @@ def main():
     g.add_argument('--dir', help='payload 目录(配合 --samples)')
     ap.add_argument('--samples', default='', help='逗号分隔; --dir 模式必填')
     ap.add_argument('--all', action='store_true', help='--dir 模式下处理目录内全部 jsonl')
-    ap.add_argument('--scheme', default='', help='过滤指定方案(如 B/H/RAG/Hybrid/Speculative); 空=不过滤')
+    ap.add_argument('--scheme', default='', help='过滤指定方案(如 B/H/RAG/HybridRAG/Hybrid/Speculative); 空=不过滤')
     ap.add_argument('--platform', default='', help='从 core/platforms.json 加载平台配置(如 official/edgeone/openrouter); 空=用该文件的 default 字段')
     ap.add_argument('--base', default=os.environ.get('JEV_BASE_URL', 'https://api.typesafe.ai'))
     ap.add_argument('--key', default=os.environ.get('JEV_API_KEY', ''))
@@ -303,7 +303,9 @@ def main():
     stage_answers = {}
     print('原始响应目录: %s' % outdir)
     total_ok = total_err = 0
-    recs = []       # 本批记录，供 print_summary 统计
+    recs = []       # 本批 API 记录，供 print_summary 统计
+    direct_written = set()  # HybridRAG 本地强正则每帖只写一次
+    direct_n = 0
     dry_n = dry_q = dry_est = 0
 
     for fp in files:
@@ -336,6 +338,27 @@ def main():
             if os.path.abspath(of) == os.path.abspath(fp):
                 print('!! 输出与输入是同一个文件(%s)，请换 --raw-dir' % of)
                 return 1
+
+            # HybridRAG：强正则直接命中的标签不调用 Jev，以本地 1.0 概率写入独立阶段。
+            # 下游将 regex_direct 与 leaf 合并，最终 tau 只裁决 Jev 候选，直接标签始终保留。
+            direct_key = (p['sample'], p.get('scheme', ''), p['mode'])
+            direct = (p.get('meta', {}).get('hybrid_rag', {}) or {}).get('direct_labels', {})
+            if direct and direct_key not in direct_written:
+                direct_answers = {qid: {'type': 'noul', 'noul': 1.0} for qid in direct}
+                rec = {'sample': p['sample'], 'mode': p['mode'], 'stage': 'regex_direct',
+                       'scheme': p.get('scheme', ''), 'chunk': 0, 'nchunks': 1,
+                       'qstyle': p.get('meta', {}).get('qstyle', ''), 'run_id': run_id,
+                       'ts': datetime.now().isoformat(timespec='seconds'), 'http': 200,
+                       'skipped': True, 'local_rule': 'strong_regex', 'latency_ms': 0,
+                       'est_tokens': 0, 'base': a.base, 'sent_model': 'local-strong-regex',
+                       'direct_evidence': direct,
+                       'body': {'model': 'local-strong-regex', 'answers': direct_answers,
+                                'usage': {'input_tokens': 0, 'output_tokens': 0}}}
+                with open(of, 'a', encoding='utf-8') as f:
+                    f.write(json.dumps(rec, ensure_ascii=False) + '\n')
+                direct_written.add(direct_key)
+                direct_n += len(direct)
+                print('REGEX %s: 强正则直接打标 %d 个（0 Jev token）' % (p['sample'], len(direct)))
             if not questions:
                 rec = {'sample': p['sample'], 'mode': p['mode'], 'stage': p.get('stage', 'leaf'),
                        'scheme': p.get('scheme', ''), 'chunk': p['chunk'], 'nchunks': p['nchunks'],
@@ -411,6 +434,8 @@ def main():
     if recs:
         print_summary(recs, a.threshold)
 
+    if direct_n:
+        print('强正则直接打标: %d 个（未计入上方 API 命中数）' % direct_n)
     print('\n完成: 成功%d 失败%d ; 原始响应目录 %s' % (total_ok, total_err, outdir))
     try:
         import genlog

@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 schemes.py - 所有 Jev 打标方案的统一实现
 每个方案一个类, 自包含不依赖外部模块(除标准库和 jev_rules)
@@ -17,9 +17,10 @@ mode 字段(产物文件名第 3 段 `{样本}__{方案}__{模式}.jsonl`, raw �
         'A1'           A1 方案: 只给标签名+类别, 不给词库(测 Jev 裸语义上限)
         'A2'           A2 方案: 带词库命中词/排除词的判据式问法(效果基准)
                        B 方案也用 'A2': B 只是用正则少问一些标签, 问法没变,
-                       所以产物是 {样本}__B__A2.jsonl —— 这是唯一 scheme≠mode 的方案
+                       所以产物是 {样本}__B__A2.jsonl；HybridRAG 使用独立流程名 hybrid_rag
         'cascade'      H 方案: 先问类别再问标签的两阶段流程
-        'similarity'   RAG 方案: 按词命中率排序取 Top-K
+        'similarity'   RAG 方案: 按向量余弦相似度排序取 Top-K
+        'hybrid_rag'   HybridRAG 方案: 强正则直接打标；否定复核与向量 Top-K 用 A2 问法
         'hybrid'       Hybrid 方案: 正则命中 + 语义标签送问
         'speculative'  Speculative 方案: 两轮(A1 全量 -> A2 边界)
     下游依赖 mode 的 3 处(改语义必须同步):
@@ -52,7 +53,7 @@ LISTF = os.path.join(ROOT, 'data', '抽样清单.csv')
 OUTD = os.path.join(ROOT, 'out', 'payloads')
 
 from jev_rules import (split_segments, find_evidence, sentiment, merge_label_rows,
-                       screen_label, q_instruction, est_tokens, JUDGE_PREAMBLE_V4)
+                       screen_label, screen_label_detail, q_instruction, est_tokens, JUDGE_PREAMBLE_V4)
 
 # 全局措辞风格, 由 main() 从 --qstyle 设置(v1=旧确认式, v2=字面判据, v3=分档判据, v4=规则判据)
 # v3 未做 A/B 验证前不作默认: A2 全量问句 tok 会从 64.4k 涨到 144.5k(+125%),
@@ -167,7 +168,7 @@ def build_chunks(state, questions, budget):
     return [dict(c) for c in out]
 
 
-def make_payload(sample, v3_row, questions, stage, scheme, mode, budget=55000, model='jev-latest', max_chars=2000, reason=''):
+def make_payload(sample, v3_row, questions, stage, scheme, mode, budget=55000, model='jev-latest', max_chars=2000, reason='', keep_empty=False):
     """构建请求体, 自动分块。
 
     budget 是**单请求总预算**(含 state)。每个 chunk 都要重复携带同一份 state,
@@ -175,10 +176,10 @@ def make_payload(sample, v3_row, questions, stage, scheme, mode, budget=55000, m
 
     stage : 流程阶段。单阶段方案固定 'leaf'; H 为 'gate_cat'/'leaf';
             Speculative 为 'pass1'/'pass2'。多阶段时才会进文件名后缀。
-    scheme: 方案名(A1/A2/B/H/RAG/Hybrid/Speculative), 决定"问哪些标签"。
+    scheme: 方案名(A1/A2/B/H/RAG/HybridRAG/Hybrid/Speculative), 决定"问哪些标签"。
     mode  : 问法粒度, 不是运行模式。由各 Scheme*.run() 写死传入:
             'A1'=裸标签 / 'A2'=带词库判据(B 方案也用 A2) /
-            'cascade'|'similarity'|'hybrid'|'speculative'=对应流程名。
+            'cascade'|'similarity'|'hybrid_rag'|'hybrid'|'speculative'=对应流程名。
             取值全表见文件头 "mode 字段" 说明。
     """
     text_full = v3_row['full_text'] or ''
@@ -190,6 +191,9 @@ def make_payload(sample, v3_row, questions, stage, scheme, mode, budget=55000, m
         # 不在 638 个问句里重复(否则 +25k tok/帖)。est/chunk 预算自动把它算进去。
         state = {'判断口径': JUDGE_PREAMBLE_V4, **state}
     chunks = build_chunks(state, questions, budget)
+    # 双路方案即使 0 候选也留一个本地 skipped 请求，保证评测范围不丢帖子。
+    if keep_empty and not chunks:
+        chunks = [{}]
 
     payloads = []
     for i, ch in enumerate(chunks, 1):
@@ -222,7 +226,7 @@ def make_payload(sample, v3_row, questions, stage, scheme, mode, budget=55000, m
 def write_payloads(payloads, scheme):
     """按 (样本, stage) 落盘。
 
-    单 stage 方案(A1/A2/B/RAG/Hybrid)沿用 `{样本}__{方案}__{模式}.jsonl`;
+    单 stage 方案(A1/A2/B/RAG/HybridRAG/Hybrid)沿用 `{样本}__{方案}__{模式}.jsonl`;
     多 stage 方案(H/Speculative)加 stage 后缀, 否则两个阶段的块会挤进同一文件,
     且 meta 只能记到最后覆盖的那一个阶段的 chunks —— 两种阶段的块数无法区分。
     """
@@ -246,8 +250,8 @@ def write_payloads(payloads, scheme):
         stage_meta = {}
         for st, sg in by_stage.items():
             # 文件名 = {样本}__{方案}__{问法}[__{阶段}].jsonl
-            #   scheme: A1/A2/B/H/RAG/Hybrid/Speculative —— 问哪些标签
-            #   mode  : A1/A2/cascade/similarity/hybrid/speculative —— 怎么问
+            #   scheme: A1/A2/B/H/RAG/HybridRAG/Hybrid/Speculative —— 问哪些标签
+            #   mode  : A1/A2/cascade/similarity/hybrid_rag/hybrid/speculative —— 怎么问
             #           (B 方案借 A2 的问法, 所以是 __B__A2; 取值全表见文件头)
             #   stage : 仅多阶段方案才有后缀(gate_cat/leaf/pass1/pass2), 单阶段不加
             # 注意: qstyle(v1/v2/v3)不在文件名里, 换措辞必须换 --outdir
@@ -450,6 +454,115 @@ class SchemeRAG:
 
 
 # ============================================================
+# 方案 HybridRAG: 强正则直接打标 + RAG 语义召回 + Jev 复核
+# ============================================================
+class SchemeHybridRAG:
+    @staticmethod
+    def run(labels, v3, reason, max_chars, args):
+        from embeddings import EmbeddingService, label_document
+        from hybrid_rag import rank_labels, merge_candidates, strong_regex_detail
+
+        scope = getattr(args, 'excls_scope', 'window')
+        scan_k = max(args.top_k, getattr(args, 'candidate_scan_k', 200))
+        print('方案 HybridRAG: 强正则直接打标 + RAG Top-%d + Jev A2 精判' % args.top_k)
+        print('  标签名精确出现且无否定=直接打标；否定命中=Jev复核；候选审计扫描 Top-%d' % scan_k)
+        service = EmbeddingService(args.embedding_base, args.embedding_key, args.embedding_model,
+                                   args.embedding_cache, args.embedding_batch_size)
+        documents = [label_document(L) for L in labels]
+        label_vectors = service.embed(documents)
+        print('  标签向量: %d 条, 模型=%s, 缓存=%s' %
+              (len(labels), args.embedding_model, args.embedding_cache))
+
+        all_payloads, audit_rows = [], []
+        for sample in sorted(v3):
+            text = (v3[sample]['full_text'] or '')[:max_chars]
+            strong = {L['idx']: strong_regex_detail(text, L, scope) for L in labels}
+            direct_labels = {'q%04d' % idx: detail for idx, detail in strong.items() if detail['direct']}
+            # 否定命中只进入 Jev 复核；已直接打标的标签不再浪费一次 RAG/Jev 请求。
+            review_details = {idx: dict(detail, matched=(detail['status'] == 'review'))
+                              for idx, detail in strong.items()}
+            query_vector = service.embed([text])[0]
+            scored = rank_labels(query_vector, label_vectors, labels)
+            selected = [c for c in merge_candidates(review_details, scored, args.top_k, args.min_score)
+                        if not strong[c['label']['idx']]['direct']]
+            audit_details = {idx: dict(detail, matched=detail['matched']) for idx, detail in strong.items()}
+            audited = merge_candidates(audit_details, scored, scan_k, None)
+
+            questions = {'q%04d' % c['label']['idx']: make_a2_question(c['label']) for c in selected}
+            payloads = make_payload(sample, v3[sample], questions, 'leaf', 'HybridRAG', 'hybrid_rag',
+                                    args.budget, args.model, max_chars, reason[sample], keep_empty=True)
+            candidate_meta = {
+                'q%04d' % c['label']['idx']: {
+                    'source': c['source'], 'strong_status': strong[c['label']['idx']]['status'],
+                    'regex': c['regex'], 'rag_score': c['rag_score'], 'rag_rank': c['rag_rank'],
+                } for c in selected
+            }
+            for payload in payloads:
+                payload['meta']['hybrid_rag'] = {
+                    'embedding_model': args.embedding_model,
+                    'top_k': args.top_k, 'candidate_scan_k': scan_k,
+                    'min_score': args.min_score, 'excls_scope': scope,
+                    'direct_labels': direct_labels, 'candidates': candidate_meta,
+                }
+            all_payloads.extend(payloads)
+
+            sent = set(candidate_meta)
+            for c in audited:
+                L = c['label']
+                qid = 'q%04d' % L['idx']
+                reg = strong[L['idx']]
+                audit_rows.append({
+                    '样本号': sample, '帖子ID': v3[sample]['id'], '标签ID': qid,
+                    '标签': L['label'], '类别': L['cat'], '细分类别': L['sub'],
+                    '来源': c['source'], '强正则结果': reg['status'],
+                    '是否直接打标': 'Y' if reg['direct'] else 'N',
+                    '正则命中': 'Y' if reg['matched'] else 'N',
+                    '正则命中词': reg.get('hit') or '',
+                    '正则位置': '' if reg.get('position') is None else reg.get('position'),
+                    '正则证据': (reg.get('evidence') or '').replace('\r', ' ').replace('\n', ' '),
+                    'RAG相似度': '' if c['rag_score'] is None else '%.8f' % c['rag_score'],
+                    'RAG排名': '' if c['rag_rank'] is None else c['rag_rank'],
+                    '是否送问': 'Y' if qid in sent else 'N',
+                    'embedding模型': args.embedding_model,
+                    'TopK': args.top_k, '扫描TopK': scan_k,
+                })
+            if not audited:
+                audit_rows.append({'样本号': sample, '帖子ID': v3[sample]['id'], '标签ID': '',
+                                   '标签': '', '类别': '', '细分类别': '', '来源': 'none',
+                                   '强正则结果': '', '是否直接打标': 'N', '正则命中': 'N',
+                                   '正则命中词': '', '正则位置': '', '正则证据': '',
+                                   'RAG相似度': '', 'RAG排名': '', '是否送问': 'N',
+                                   'embedding模型': args.embedding_model, 'TopK': args.top_k,
+                                   '扫描TopK': scan_k})
+            n_review = sum(1 for d in strong.values() if d['status'] == 'review')
+            print('%s: 强正则直接=%d, 否定复核=%d, Jev送问=%d -> %d块' %
+                  (sample, len(direct_labels), n_review, len(questions), len(payloads)))
+
+        os.makedirs(OUTD, exist_ok=True)
+        audit_path = os.path.join(OUTD, '候选标签_HybridRAG.csv')
+        fields = ['样本号', '帖子ID', '标签ID', '标签', '类别', '细分类别', '来源', '强正则结果',
+                  '是否直接打标', '正则命中', '正则命中词', '正则位置', '正则证据', 'RAG相似度',
+                  'RAG排名', '是否送问', 'embedding模型', 'TopK', '扫描TopK']
+        with open(audit_path, 'w', encoding='utf-8-sig', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=fields)
+            writer.writeheader(); writer.writerows(audit_rows)
+        print('候选审计: %s (%d 行)' % (audit_path, len(audit_rows)))
+
+        usage_path = os.path.join(OUTD, 'embedding_usage_HybridRAG.json')
+        usage = service.usage_snapshot() if hasattr(service, 'usage_snapshot') else {}
+        with open(usage_path, 'w', encoding='utf-8') as f:
+            json.dump({'scheme': 'HybridRAG', 'model': args.embedding_model,
+                       'cache': args.embedding_cache, 'samples': len(v3),
+                       'label_documents': len(labels), 'usage': usage,
+                       'note': 'token 为接口实际 usage；未返回 usage 的批次数单独记录，费用需按实际服务单价另算'},
+                      f, ensure_ascii=False, indent=2)
+        print('向量用量: %s' % usage_path)
+
+        if all_payloads:
+            write_payloads(all_payloads, 'HybridRAG')
+
+
+# ============================================================
 # 方案 Hybrid: 正则+语义
 # ============================================================
 class SchemeHybrid:
@@ -518,6 +631,7 @@ SCHEMES = {
     'B': SchemeB,
     'H': SchemeH,
     'RAG': SchemeRAG,
+    'HybridRAG': SchemeHybridRAG,
     'Hybrid': SchemeHybrid,
     'Speculative': SchemeSpeculative,
 }
@@ -532,7 +646,7 @@ def main():
     ap.add_argument('--max-chars', type=int, default=2000)
     ap.add_argument('--budget', type=int, default=55000, help='单请求总预算(含 state)')
     ap.add_argument('--model', default='jev-latest')
-    ap.add_argument('--top-k', type=int, default=50, help='RAG方案取Top-K')
+    ap.add_argument('--top-k', type=int, default=50, help='RAG/HybridRAG方案取Top-K')
     ap.add_argument('--cat-tau', type=float, default=0.15, help='H方案类别门控阈值，默认0.15')
     ap.add_argument('--cat-k', type=int, default=12, help='H方案额外保留概率Top-K类别，默认12')
     ap.add_argument('--gate-fallback', choices=['all', 'none'], default='all',
@@ -541,6 +655,8 @@ def main():
     ap.add_argument('--hi', type=float, default=0.8, help='Speculative边界上限，默认0.8')
     ap.add_argument('--spec-fallback', choices=['none', 'all'], default='none',
                     help='Speculative第一轮失败时：none=跳过第二轮(默认) / all=第二轮全量')
+    ap.add_argument('--embedding-platform', default='',
+                    help='从 platforms.json 的 embedding_platforms 加载配置（如 dashscope）；优先级高于环境变量和 --embedding-*')
     ap.add_argument('--embedding-base', default=os.environ.get('EMBEDDING_BASE_URL', 'https://api.openai.com'),
                     help='RAG向量接口，OpenAI兼容；默认EMBEDDING_BASE_URL或OpenAI')
     ap.add_argument('--embedding-key', default=os.environ.get('EMBEDDING_API_KEY', os.environ.get('OPENAI_API_KEY', '')),
@@ -550,7 +666,8 @@ def main():
     ap.add_argument('--embedding-cache', default=os.path.join(ROOT, 'out', 'rag_embedding_cache.json'),
                     help='RAG向量缓存路径（只存哈希键与向量，不存原文）')
     ap.add_argument('--embedding-batch-size', type=int, default=32, help='向量接口每批文本数，默认32')
-    ap.add_argument('--min-score', type=float, default=None, help='RAG可选最低余弦相似度；默认只看Top-K')
+    ap.add_argument('--min-score', type=float, default=None, help='RAG/HybridRAG可选最低余弦相似度；默认只看Top-K')
+    ap.add_argument('--candidate-scan-k', type=int, default=200, help='HybridRAG候选审计保留的最大RAG排名，默认200')
     ap.add_argument('--qstyle', default='v2', choices=['v1', 'v2', 'v3', 'v4'],
                     help='问题措辞: v2=字面判据(默认) / v4=规则判据(对齐《标注规则》口径, '
                          'state带判断总则+易混标签边界句) / v3=分档判据(未验证, tok +125%%) / '
@@ -566,12 +683,22 @@ def main():
         value = getattr(args, name)
         if not 0 <= value <= 1:
             ap.error('--%s 必须在 0~1 之间' % name.replace('_', '-'))
-    if args.cat_k < 0 or args.top_k <= 0 or args.embedding_batch_size <= 0:
-        ap.error('--cat-k 必须≥0，--top-k/--embedding-batch-size 必须>0')
+    if args.cat_k < 0 or args.top_k <= 0 or args.embedding_batch_size <= 0 or args.candidate_scan_k <= 0:
+        ap.error('--cat-k 必须≥0，--top-k/--embedding-batch-size/--candidate-scan-k 必须>0')
     if args.lo > args.hi:
         ap.error('--lo 不能大于 --hi')
-    if args.scheme == 'RAG' and not args.embedding_key:
-        ap.error('RAG 需要向量 API key：设 EMBEDDING_API_KEY/OPENAI_API_KEY 或传 --embedding-key')
+    # 从 platforms.json 加载 embedding 配置（优先级最高）
+    if args.embedding_platform:
+        from embeddings import load_embedding_config
+        emb_cfg = load_embedding_config(args.embedding_platform)
+        if emb_cfg:
+            args.embedding_base = emb_cfg['base_url']
+            args.embedding_key = emb_cfg['api_key']
+            args.embedding_model = emb_cfg['model']
+            print('embedding 配置已从 platforms.json [%s] 加载' % args.embedding_platform)
+
+    if args.scheme in ('RAG', 'HybridRAG') and not args.embedding_key:
+        ap.error('%s 需要向量 API key：设 --embedding-platform / EMBEDDING_API_KEY/OPENAI_API_KEY 或传 --embedding-key' % args.scheme)
 
     QSTYLE = args.qstyle
     OUTD = (os.path.abspath(args.outdir) if args.outdir

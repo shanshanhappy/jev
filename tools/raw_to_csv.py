@@ -177,10 +177,10 @@ def export(raw=None, threshold=None, outdir=None, quiet=False, top_n=8,
         grouped.setdefault(key, []).append(r)
     merged_records = []
     for (sample, scheme, mode), group in grouped.items():
-        if scheme not in ('H', 'Speculative'):
+        if scheme not in ('H', 'Speculative', 'HybridRAG'):
             merged_records.extend(group)
             continue
-        stage_rank = {'gate_cat': 0, 'pass1': 0, 'leaf': 1, 'pass2': 1}
+        stage_rank = {'regex_direct': 0, 'gate_cat': 0, 'pass1': 0, 'leaf': 1, 'pass2': 1}
         group.sort(key=lambda r: (stage_rank.get(r.get('stage', 'leaf'), 2), r.get('chunk') or 0))
         answers = {}
         answer_stages = {}

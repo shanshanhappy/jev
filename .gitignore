@@ -29,6 +29,7 @@ out/rag_embedding_cache.json
 
 
 # 大文件超过100MB - 不提交到git
+
 back/out/raw1000/A2/打标明细_全量.csv
-out/raw_A1/打标明细_全量.csv
 out/raw_Speculative_1000/打标明细_全量.csv
+out/raw_A1/打标明细_全量.csv

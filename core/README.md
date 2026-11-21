@@ -6,12 +6,13 @@
 
 ```
 core/
-├── schemes.py       # ⭐ 所有方案的统一入口（7种方案）
+├── schemes.py       # ⭐ 所有方案的统一入口（8种方案，含 HybridRAG）
 ├── jev_client.py    # API 客户端（支持 --platform 多平台配置）
 ├── jev_eval.py      # 评测模块（准确率/召回率、细分表、汇总表、报告）
 ├── jev_rules.py     # ⭐ 共享规则（粗筛/问题措辞/token 估算/证据回搜/情绪派生）
 ├── flow_rules.py    # H / Speculative 第二阶段动态筛选
-├── embeddings.py    # RAG 向量接口、余弦相似度与缓存
+├── embeddings.py    # RAG/HybridRAG 向量接口、余弦相似度、缓存与用量统计
+├── hybrid_rag.py    # HybridRAG 强正则、语义排名、候选并集与来源判定
 ├── genlog.py        # ⭐ 生成日志（记录每个产物是什么、谁生成的；也可当命令跑）
 ├── platforms.json   # 平台配置文件（多平台 API key）
 └── README.md        # 本文件
@@ -508,12 +509,13 @@ python core/schemes.py --scheme B --excls-scope full --qstyle v1   # 复现旧�
 | `A1` | A1 | 只给标签名 + 类别，不给词库，测 Jev 裸语义上限 |
 | `A2` | **A2、B** | 带词库命中词/排除词的判据式问法 |
 | `cascade` | H | 两阶段：先问类别 → 再问该类别下的标签 |
-| `similarity` | RAG | 按词命中率排序取 Top-K |
+| `similarity` | RAG | 按向量余弦相似度排序取 Top-K |
+| `hybrid_rag` | HybridRAG | 标签名精确且无否定直接打标；否定复核与向量 Top-K 使用 A2 问法 |
 | `hybrid` | Hybrid | 正则命中 + 语义标签送问 |
 | `speculative` | Speculative | 两轮：A1 全量 → A2 复问边界 |
 
 > **为什么 B 方案文件名是 `S001__B__A2.jsonl`**：B 只改变了「问哪些标签」（先用正则粗筛掉没命中的），
-> **问法本身没变**，仍是 A2 的词库判据式。所以 `scheme=B` 而 `mode=A2` —— 这是唯一 scheme ≠ mode 的方案。
+> **问法本身没变**，仍是 A2 的词库判据式。所以 `scheme=B` 而 `mode=A2`，是最典型的 scheme 与问法名不一致场景。
 > 正因为这段有信息量，评测时才必须 `--scheme B --mode A2` 两个参数一起传（只传一个会把别方案的数据读进来）。
 
 **三个下游依赖 mode**，改语义要同步：

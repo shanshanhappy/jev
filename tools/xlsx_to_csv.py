@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 r"""
 零依赖 xlsx -> CSV 拆分工具（仅用 Python 标准库）
 
@@ -198,7 +198,10 @@ def convert(xlsx_path, output_dir=None):
             if not target:
                 print("  ! 跳过 %s：找不到关系目标" % name)
                 continue
-            path = target if target.startswith("xl/") else "xl/" + target.lstrip("/")
+            # Relationship Target 可能是 worksheets/sheet1.xml、xl/worksheets/sheet1.xml
+            # 或 /xl/worksheets/sheet1.xml。先去掉根斜杠，避免拼成 xl/xl/...。
+            target = target.lstrip("/")
+            path = target if target.startswith("xl/") else "xl/" + target
             path = os.path.normpath(path).replace("\\", "/")
 
             rows = trim_empty_columns(sheet_rows(z, path, shared, date_xfs))

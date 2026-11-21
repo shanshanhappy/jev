@@ -1,0 +1,638 @@
+{"label_id": "q0001", "label": "干皮", "existing_expressions": ["干皮", "干燥", "爆皮", "起皮", "脱皮", "掉皮"]}
+{"label_id": "q0002", "label": "油皮", "existing_expressions": ["油皮", "出油", "大油田", "油痘肌", "油光"]}
+{"label_id": "q0003", "label": "中性皮", "existing_expressions": ["中性"]}
+{"label_id": "q0004", "label": "混油", "existing_expressions": ["混油", "混合偏油"]}
+{"label_id": "q0005", "label": "混干", "existing_expressions": ["混干", "混合偏干"]}
+{"label_id": "q0006", "label": "泛指混皮", "existing_expressions": ["混皮", "混合"]}
+{"label_id": "q0007", "label": "外油内干", "existing_expressions": ["外油内干"]}
+{"label_id": "q0008", "label": "任意肤质", "existing_expressions": ["干油皮", "任意肤质", "任何肤质"]}
+{"label_id": "q0009", "label": "敏感肌", "existing_expressions": ["敏感", "易敏", "敏皮", "敏感肌", "瓷敏", "敏损", "敏脆", "敏干", "敏油", "敏弱", "轻敏", "屏障受损", "敏肌", "m感", "min感", "m肌", "min肌"]}
+{"label_id": "q0010", "label": "薄皮", "existing_expressions": ["薄皮", "敏弱", "皮薄"]}
+{"label_id": "q0011", "label": "痘肌", "existing_expressions": ["痘"]}
+{"label_id": "q0012", "label": "耐受皮", "existing_expressions": ["耐受", "城墙"]}
+{"label_id": "q0013", "label": "年轻肌", "existing_expressions": ["年轻", "减龄", "年青"]}
+{"label_id": "q0014", "label": "熟龄肌", "existing_expressions": ["衰老", "老化", "年龄增长", "熟龄", "老龄", "初老", "s老"]}
+{"label_id": "q0015", "label": "健康肤质", "existing_expressions": ["健康肤质", "健康皮", "健康肌"]}
+{"label_id": "q0016", "label": "泛指烂脸", "existing_expressions": ["烂脸", "皮肤烂", "脸烂"]}
+{"label_id": "q0017", "label": "脱屑", "existing_expressions": ["脱屑", "干屑", "皮屑", "皮脂屑"]}
+{"label_id": "q0018", "label": "爆皮", "existing_expressions": ["爆皮", "起皮", "脱皮", "掉皮"]}
+{"label_id": "q0019", "label": "干", "existing_expressions": ["干裂", "干纹", "皲裂"]}
+{"label_id": "q0020", "label": "痒", "existing_expressions": ["痒"]}
+{"label_id": "q0021", "label": "起疹", "existing_expressions": ["起疹", "长疹", "红疹", "皮疹"]}
+{"label_id": "q0022", "label": "泛红", "existing_expressions": ["泛红", "红血丝", "发红", "红脸"]}
+{"label_id": "q0023", "label": "红肿", "existing_expressions": ["红肿", "红疙瘩", "起红点", "肿得"]}
+{"label_id": "q0024", "label": "刺痛", "existing_expressions": ["刺痛", "刺痒"]}
+{"label_id": "q0025", "label": "灼热", "existing_expressions": ["发烫", "灼热"]}
+{"label_id": "q0026", "label": "紧绷", "existing_expressions": ["紧绷", "绷"]}
+{"label_id": "q0027", "label": "出油多", "existing_expressions": ["出油", "大油田", "油痘肌"]}
+{"label_id": "q0028", "label": "脂溢性", "existing_expressions": ["脂溢性", "皮炎", "z溢性", "皮Y", "皮yan"]}
+{"label_id": "q0029", "label": "玫瑰痤疮", "existing_expressions": ["玫瑰"]}
+{"label_id": "q0030", "label": "长痘", "existing_expressions": ["长痘", "冒痘", "出痘", "月球脸"]}
+{"label_id": "q0031", "label": "痤疮", "existing_expressions": ["痤疮"]}
+{"label_id": "q0032", "label": "粉刺", "existing_expressions": ["粉刺"]}
+{"label_id": "q0033", "label": "闭口", "existing_expressions": ["闭口", "疙瘩"]}
+{"label_id": "q0034", "label": "毛孔", "existing_expressions": ["毛孔"]}
+{"label_id": "q0035", "label": "泛指过敏", "existing_expressions": ["过敏", "应激", "过m", "过min"]}
+{"label_id": "q0036", "label": "角质层薄", "existing_expressions": ["薄"]}
+{"label_id": "q0037", "label": "抗老", "existing_expressions": ["抗衰", "抗衰老", "s老", "k衰", "抗s", "老化", "年龄增长", "熟龄", "老龄", "初老", "抗老", "抗L", "K老", "抗lao", "kang老", "抗初老", "抗光老", "光老化"]}
+{"label_id": "q0038", "label": "皱纹", "existing_expressions": ["皱纹", "淡纹", "细纹", "眼袋纹", "鱼尾纹", "抬头纹", "法令纹", "川字纹", "纹"]}
+{"label_id": "q0040", "label": "提到动态纹", "existing_expressions": ["动态", "动"]}
+{"label_id": "q0041", "label": "表情纹", "existing_expressions": ["表情", "笑眼"]}
+{"label_id": "q0042", "label": "眼尾纹", "existing_expressions": ["眼尾", "鱼尾"]}
+{"label_id": "q0043", "label": "法令纹", "existing_expressions": ["法令纹"]}
+{"label_id": "q0044", "label": "川字纹", "existing_expressions": ["川字", "眉间"]}
+{"label_id": "q0045", "label": "抬头纹", "existing_expressions": ["抬头", "额头"]}
+{"label_id": "q0047", "label": "眼周纹", "existing_expressions": ["眼周"]}
+{"label_id": "q0048", "label": "内眼角纹", "existing_expressions": ["内眼角"]}
+{"label_id": "q0049", "label": "眼下纹", "existing_expressions": ["眼下", "苹果机上方"]}
+{"label_id": "q0050", "label": "泪沟纹", "existing_expressions": ["泪沟"]}
+{"label_id": "q0051", "label": "唇周纹", "existing_expressions": ["唇周", "嘴角", "嘴巴四周"]}
+{"label_id": "q0052", "label": "颈纹", "existing_expressions": ["颈", "脖"]}
+{"label_id": "q0054", "label": "深层纹", "existing_expressions": ["深层", "可见"]}
+{"label_id": "q0055", "label": "微纹路", "existing_expressions": ["细纹", "干纹", "微小纹路", "微纹", "皮沟", "微肌理"]}
+{"label_id": "q0056", "label": "潜在纹（未来纹）", "existing_expressions": ["新生纹", "未来纹", "潜在纹", "假性纹", "假性干纹", "生长纹"]}
+{"label_id": "q0058", "label": "法令纹、川字纹、抬头纹、泪沟纹、唇周纹", "existing_expressions": ["法令", "川字", "眉间", "抬头", "额头", "泪沟", "唇周"]}
+{"label_id": "q0059", "label": "全脸使用眼霜", "existing_expressions": ["使用", "涂", "护理", "整个", "抹", "擦", "适用"]}
+{"label_id": "q0061", "label": "颈部松弛", "existing_expressions": ["颈", "脖"]}
+{"label_id": "q0062", "label": "松弛", "existing_expressions": ["轮廓", "松弛", "下垂", "垂坠", "垮塌", "垮脸"]}
+{"label_id": "q0063", "label": "粗糙", "existing_expressions": ["粗糙", "没有光泽", "无光泽"]}
+{"label_id": "q0064", "label": "肤色不均", "existing_expressions": ["肤色不均", "肤色不均匀", "不均匀"]}
+{"label_id": "q0065", "label": "暗沉", "existing_expressions": ["暗沉", "黯沉", "色沉", "色素沉淀", "色素沉着", "气色差", "色素沉积", "暗哑", "晦暗", "暗淡无光"]}
+{"label_id": "q0066", "label": "发黄", "existing_expressions": ["发黄", "变黄", "黄气", "泛黄", "黄皮", "黯黄", "枯黄"]}
+{"label_id": "q0067", "label": "斑点", "existing_expressions": ["斑点", "色斑", "黄褐斑", "老年斑", "斑痕", "雀斑", "长斑", "有斑", "黑斑", "黄斑"]}
+{"label_id": "q0068", "label": "没有弹性", "existing_expressions": ["干瘪", "无弹性", "缺乏弹性", "缺少弹性"]}
+{"label_id": "q0069", "label": "修护力下降", "existing_expressions": ["修护力下降"]}
+{"label_id": "q0070", "label": "黑眼圈", "existing_expressions": ["黑眼圈", "熊猫眼", "天生国宝", "眼下肤色", "暗沉", "喑哑", "晦暗"]}
+{"label_id": "q0071", "label": "泡泡眼", "existing_expressions": ["泡泡眼", "眼泡", "晨肿", "浮肿", "浮涨", "浮胀", "水肿"]}
+{"label_id": "q0072", "label": "眼袋", "existing_expressions": ["眼袋", "眶隔脂肪"]}
+{"label_id": "q0073", "label": "眼肌下垂", "existing_expressions": ["眼周肌", "眼肌", "眼眶"]}
+{"label_id": "q0074", "label": "倦态显老", "existing_expressions": ["倦容", "倦态", "疲劳", "显老", "老10岁", "老15岁", "老5岁", "被叫阿姨", "疲惫"]}
+{"label_id": "q0075", "label": "发黄", "existing_expressions": ["发黄 变黄 黄气 泛黄 黄皮 黯黄"]}
+{"label_id": "q0076", "label": "斑点", "existing_expressions": ["斑点 色斑 黄褐斑 老年斑 斑痕 斑 雀斑"]}
+{"label_id": "q0077", "label": "痘印", "existing_expressions": ["痘印 痘痕 痘疤"]}
+{"label_id": "q0078", "label": "肤色黑", "existing_expressions": ["肤色黑 皮肤黑 变黑 晒黑"]}
+{"label_id": "q0079", "label": "暗沉", "existing_expressions": ["暗沉 黯沉 色沉 色素沉淀 色素沉着 气色差 色素沉积"]}
+{"label_id": "q0080", "label": "肤色不均", "existing_expressions": ["肤色不均 肤色不均匀 不均匀"]}
+{"label_id": "q0081", "label": "维稳（肌肤稳定）", "existing_expressions": ["健康", "稳定", "健韧", "维稳"]}
+{"label_id": "q0082", "label": "修护加强屏障角质层", "existing_expressions": ["修复", "修护", "恢复", "强化", "强韧", "增强", "改善", "加强", "巩固", "防御", "呵护", "强", "B5", "神经酰胺", "角鲨烷"]}
+{"label_id": "q0083", "label": "抵御外源质伤害", "existing_expressions": ["侵袭", "损伤"]}
+{"label_id": "q0084", "label": "强韧肤质", "existing_expressions": ["皮肤", "肌肤", "肤质", "质感", "质地", "肌态"]}
+{"label_id": "q0085", "label": "肌肤新生", "existing_expressions": ["新生", "重生", "再生"]}
+{"label_id": "q0086", "label": "肌表健康", "existing_expressions": ["肌表健康", "菌群平衡", "微循环", "微生态", "微生物", "益生肌肤", "肌表菌群", "角质修理"]}
+{"label_id": "q0087", "label": "改善肌底", "existing_expressions": ["肌底", "肌理", "基底"]}
+{"label_id": "q0088", "label": "水油平衡", "existing_expressions": ["水油平衡", "控油平衡", "平衡油脂", "平衡水油", "调节油脂"]}
+{"label_id": "q0089", "label": "增强耐受力", "existing_expressions": ["修复", "修护", "恢复", "强化", "强韧", "增强", "改善", "加强", "巩固", "防御", "提升"]}
+{"label_id": "q0090", "label": "自我修护", "existing_expressions": ["肌肤免疫", "皮肤免疫", "自愈", "激活修护", "自我修护", "自我免疫", "美肌活力", "焕活", "肌肤活性"]}
+{"label_id": "q0091", "label": "平衡微生态", "existing_expressions": ["肌表健康", "菌群平衡", "微循环", "微生态", "微生物", "益生肌肤", "肌表菌群", "角质修理"]}
+{"label_id": "q0092", "label": "保湿补水", "existing_expressions": ["保湿", "补水", "水光", "水润", "水嫩", "不起皮", "不干燥", "水盈", "深润", "莹润", "凝润", "锁水", "爆水", "极润", "喝饱水", "皮肤喝水"]}
+{"label_id": "q0093", "label": "打底促渗透", "existing_expressions": ["强化", "强韧", "增强", "改善", "加强", "加乘", "透皮"]}
+{"label_id": "q0094", "label": "增加皮肤弹性", "existing_expressions": ["皮肤弹性", "弹性"]}
+{"label_id": "q0095", "label": "提高皮肤修护力", "existing_expressions": ["激活修护", "自我修护", "美肌活力", "焕活", "肌肤活性", "自身修护", "自我修复", "自身修复", "自愈", "共愈新生"]}
+{"label_id": "q0096", "label": "提升肌底免疫力", "existing_expressions": ["肌肤免疫", "皮肤免疫", "自我免疫", "自愈"]}
+{"label_id": "q0097", "label": "抗炎", "existing_expressions": ["消炎", "抗炎", "抑制炎症", "抗火火", "消火火", "消yan", "抗yan", "抗y", "k炎"]}
+{"label_id": "q0098", "label": "褪红", "existing_expressions": ["红肿", "红疙瘩", "起红点", "肿得", "红血丝"]}
+{"label_id": "q0099", "label": "祛痘", "existing_expressions": ["祛痘", "去痘", "治痘", "清痘", "消痘", "痘消", "痘清", "痘去", "抑痘"]}
+{"label_id": "q0100", "label": "痘印变淡", "existing_expressions": ["痘印", "痘坑", "黑印", "红印"]}
+{"label_id": "q0101", "label": "去粉刺", "existing_expressions": ["粉刺"]}
+{"label_id": "q0102", "label": "去痤疮", "existing_expressions": ["痤疮"]}
+{"label_id": "q0103", "label": "去黑头", "existing_expressions": ["黑头"]}
+{"label_id": "q0104", "label": "修复毛孔", "existing_expressions": ["毛孔"]}
+{"label_id": "q0105", "label": "改善闭口", "existing_expressions": ["闭口"]}
+{"label_id": "q0106", "label": "急救修护", "existing_expressions": ["紧急", "急救", "即效"]}
+{"label_id": "q0107", "label": "损伤修护", "existing_expressions": ["损伤", "瑕疵", "破损", "伤口", "破皮"]}
+{"label_id": "q0108", "label": "淡化疤痕", "existing_expressions": ["疤痕", "疤"]}
+{"label_id": "q0109", "label": "缓解过敏", "existing_expressions": ["缓解过敏", "舒敏", "舒缓敏感", "预防过敏", "降低敏感", "降低肌肤敏感", "m感", "过m", "过min"]}
+{"label_id": "q0110", "label": "舒缓镇定", "existing_expressions": ["镇静", "舒缓"]}
+{"label_id": "q0111", "label": "医美后修护", "existing_expressions": ["修复", "泛红", "红肿", "冰镇", "降温", "舒缓", "修护", "损伤", "瑕疵", "破损", "伤口", "破皮", "紧急", "急救", "即效", "镇静", "镇定"]}
+{"label_id": "q0112", "label": "晒后修复", "existing_expressions": ["修复", "泛红", "红肿", "冰镇", "降温", "舒缓", "修护", "损伤", "瑕疵", "破损", "伤口", "破皮", "紧急", "急救", "即效", "镇静", "镇定"]}
+{"label_id": "q0113", "label": "补水保湿", "existing_expressions": ["保湿", "补水", "水光", "水润", "水嫩", "不起皮", "不干燥", "水盈", "深润", "莹润", "凝润", "锁水", "爆水", "极润", "喝饱水", "皮肤喝水", "凝水"]}
+{"label_id": "q0114", "label": "清洁", "existing_expressions": ["去黑头", "黑头浮出来", "毛孔干净", "毛孔通畅", "黑头", "粉刺"]}
+{"label_id": "q0115", "label": "去黑头", "existing_expressions": ["清洁", "去黑头", "黑头浮出来", "毛孔干净", "泥膜", "揉出脏东西", "深清", "毛孔通畅", "黑头", "粉刺"]}
+{"label_id": "q0116", "label": "多次清洁", "existing_expressions": ["清洁"]}
+{"label_id": "q0117", "label": "深度清洁", "existing_expressions": ["深度", "深层", "重度", "火山岩", "火山泥", "活性炭", "活性碳", "炭黑", "碳黑", "竹炭", "橡木炭"]}
+{"label_id": "q0118", "label": "温和清洁", "existing_expressions": ["温和", "亲和", "氨基酸", "柔和", "无刺激", "0刺激", "低刺激", "不伤肤"]}
+{"label_id": "q0119", "label": "除螨", "existing_expressions": ["除螨", "螨虫", "去螨", "祛螨", "杀螨", "抑螨", "净螨", "尘螨", "蠕形螨", "疥螨", "疥疮", "毛癣", "红疹", "脓包", "丘疹", "水疱", "丘疹性荨麻疹", "丘疱疹"]}
+{"label_id": "q0120", "label": "控油", "existing_expressions": ["控油", "油皮救星", "水油平衡", "少出油", "控油平衡", "平衡油脂", "平衡水油", "调节油脂"]}
+{"label_id": "q0121", "label": "祛痘", "existing_expressions": ["祛痘", "抗痘", "痘痘消", "痘肌友好", "去痘", "治痘", "清痘", "消痘", "痘消", "痘清", "痘去", "抑痘"]}
+{"label_id": "q0122", "label": "晒后修复", "existing_expressions": ["修复", "泛红", "红肿", "冰镇", "降温", "舒缓", "修护", "损伤", "瑕疵", "破损", "伤口", "破皮", "紧急", "急救", "即效"]}
+{"label_id": "q0123", "label": "抗氧化", "existing_expressions": ["抗氧", "抵御氧化", "防止氧化", "减缓氧化", "御氧", "清氧", "抵御外界氧化", "游离基", "自由基", "抗自由基"]}
+{"label_id": "q0124", "label": "抗老化", "existing_expressions": ["抗老", "抗衰", "减缓衰老", "减缓老化", "防止老化", "防止衰老", "抵御老化", "抵御衰老", "抗初老", "s老", "k衰", "抗s", "抗L", "K老", "抗lao", "kang老"]}
+{"label_id": "q0125", "label": "抗糖化", "existing_expressions": ["抗糖", "抗糖化", "抗醣", "糖化", "去糖化", "抗AGEs", "AGEs", "胶原糖化", "黄气(糖化)", "暗黄(非氧化)"]}
+{"label_id": "q0126", "label": "去皱淡纹", "existing_expressions": ["皱", "淡纹", "细纹", "法令纹", "川字纹", "眼袋纹", "鱼尾纹", "抬头纹", "八字纹", "老化纹", "压力纹", "表情纹", "木偶纹", "泪沟纹", "眉间纹", "重力纹", "眼角纹", "纹"]}
+{"label_id": "q0127", "label": "紧致", "existing_expressions": ["紧致", "紧肤", "塑颜", "紧塑", "紧实", "提拉", "线雕", "轮廓", "弹润", "致密", "收紧", "绷带", "绷紧", "提紧"]}
+{"label_id": "q0128", "label": "减缓松弛", "existing_expressions": ["轮廓", "松弛", "下垂", "提拉", "下颌缘上扬"]}
+{"label_id": "q0129", "label": "均匀肤色", "existing_expressions": ["均匀肤色", "肤色均匀", "均匀肤色 匀净"]}
+{"label_id": "q0130", "label": "改善暗沉", "existing_expressions": ["暗沉", "黯沉", "色沉", "色素沉淀", "色素沉着", "气色差", "色素沉积", "减少暗沉 改善暗沉 减少黯沉 改善黯沉 淡化暗沉 淡化色沉 去暗沉 去色沉"]}
+{"label_id": "q0131", "label": "提亮肤色", "existing_expressions": ["提亮", "抛光", "提升光泽", "提升肌肤光泽"]}
+{"label_id": "q0132", "label": "改善暗黄", "existing_expressions": ["去黄", "祛黄", "去暗黄", "祛暗黄", "改善暗黄", "减少暗黄"]}
+{"label_id": "q0133", "label": "淡斑", "existing_expressions": ["淡斑", "斑淡", "祛斑", "去斑", "淡斑 斑淡 祛斑 去斑 退斑 减淡斑点 击退斑点"]}
+{"label_id": "q0134", "label": "祛痘", "existing_expressions": ["祛痘印 消除痘印 击退痘印 淡化痘印 去痘印"]}
+{"label_id": "q0135", "label": "提亮", "existing_expressions": ["提亮 变亮 透亮 发光 焕亮 光泽 通透 匀亮"]}
+{"label_id": "q0136", "label": "变白", "existing_expressions": ["变白 美白 白皙 焕白 反白 净白  变白 白得自然 坚持用白 烟酰胺 377 维C 白皙 焕白 反白 净白"]}
+{"label_id": "q0137", "label": "去黄", "existing_expressions": ["去黄", "暗沉", "发黄", "气色差", "肤色不亮", "提亮", "透亮", "黄气退", "抗氧", "熬夜黄", "早C", "维C", "虾青素", "光泽", "肤色均匀", "祛黄", "去暗黄", "祛暗黄", "改善暗黄", "减少暗黄", "抛光", "提升光泽", "提升肌肤光泽", "黯沉", "色沉", "色素沉淀", "色素沉着", "色素沉积"]}
+{"label_id": "q0140", "label": "净化", "existing_expressions": ["净化 净透 净澈"]}
+{"label_id": "q0142", "label": "预防斑", "existing_expressions": ["预防斑 预防潜在斑 预防黑色素 复黑 反复"]}
+{"label_id": "q0143", "label": "保护胶原", "existing_expressions": ["保护", "守护"]}
+{"label_id": "q0144", "label": "胶原合成促生", "existing_expressions": ["合成", "生成", "补充", "充值", "促生", "激活", "激发", "加速", "放大", "新生"]}
+{"label_id": "q0145", "label": "肌肤支撑", "existing_expressions": ["肌肤结构", "支撑结构", "支撑力", "纤维"]}
+{"label_id": "q0146", "label": "多维抗老", "existing_expressions": ["多维", "多重", "多通路", "双防线", "多效", "双效", "双重", "三维"]}
+{"label_id": "q0147", "label": "多层抗老", "existing_expressions": ["深层", "中层", "表层", "各层次", "层层", "第1层", "第2层", "第3层"]}
+{"label_id": "q0148", "label": "精准抗老", "existing_expressions": ["靶向", "精准"]}
+{"label_id": "q0149", "label": "根源抗老", "existing_expressions": ["根源", "深层", "深入"]}
+{"label_id": "q0150", "label": "日间夜间", "existing_expressions": ["日间", "夜间", "昼夜", "日夜", "夜晚"]}
+{"label_id": "q0151", "label": "协同复合", "existing_expressions": ["协同", "复合", "配合", "结合"]}
+{"label_id": "q0152", "label": "细胞焕新", "existing_expressions": ["细胞焕新", "细胞再生", "美肌活力", "焕活", "肌肤活性"]}
+{"label_id": "q0153", "label": "微生态屏障", "existing_expressions": ["肌表健康", "菌群平衡", "微循环", "微生态", "微生物", "益生肌肤", "肌表菌群"]}
+{"label_id": "q0154", "label": "泛生物屏障", "existing_expressions": ["角质层", "生物屏障", "物理屏障", "生理性脂质地", "生理脂质地", "仿生皮脂", "锁水屏障", "保湿屏障", "锁定水分", "神经酰胺"]}
+{"label_id": "q0155", "label": "生物屏障-补充生理脂质", "existing_expressions": ["生理性脂质地", "生理脂质地", "皮脂", "神经酰胺", "胆固醇", "游离脂肪酸", "卵磷脂", "三酸甘油酯", "鲨烷", "脂质"]}
+{"label_id": "q0156", "label": "生物屏障-提升屏障封闭能力", "existing_expressions": ["锁水", "保湿", "锁定", "封闭"]}
+{"label_id": "q0157", "label": "人体仿生学", "existing_expressions": ["人体仿生", "类人体", "仿生"]}
+{"label_id": "q0158", "label": "化学屏障弱酸因子", "existing_expressions": ["NMF", "天然保湿因子", "ph值因子", "弱酸因子", "化学屏障"]}
+{"label_id": "q0159", "label": "增强免疫屏障", "existing_expressions": ["肌肤免疫", "皮肤免疫", "自我免疫", "树突状细胞", "巨噬细胞", "T细胞", "免疫屏障"]}
+{"label_id": "q0160", "label": "肌底修护", "existing_expressions": ["健康", "稳定", "健韧", "强韧", "强化", "增强", "改善", "加强", "加乘", "变好", "改变"]}
+{"label_id": "q0161", "label": "肌底修护-促进肌底膜蛋白生成", "existing_expressions": ["肌底膜", "基底膜", "胶原蛋白"]}
+{"label_id": "q0162", "label": "修护内源损伤-增强细胞代谢", "existing_expressions": ["强化", "强韧", "增强", "改善", "加强", "加乘", "促进", "焕活", "加速", "激活", "刺激"]}
+{"label_id": "q0163", "label": "修护内源损伤-促进细胞自愈", "existing_expressions": ["自愈", "激活修护", "自我修护", "美肌活力", "焕活", "肌肤活性", "调控基因", "调控DNA", "细胞修护"]}
+{"label_id": "q0164", "label": "促进胶原&弹性蛋白再生", "existing_expressions": ["胶原"]}
+{"label_id": "q0165", "label": "增加神经末梢耐受", "existing_expressions": ["耐受", "抗造", "肌肤抗压", "皮肤抗压", "减少应激", "神经末梢", "抵御刺激", "降低信号"]}
+{"label_id": "q0166", "label": "降低毛细血管脆弱", "existing_expressions": ["血管通透", "血管壁", "毛细血管"]}
+{"label_id": "q0167", "label": "延长水合作用", "existing_expressions": ["水合作用"]}
+{"label_id": "q0168", "label": "双向", "existing_expressions": ["双向"]}
+{"label_id": "q0169", "label": "靶向", "existing_expressions": ["靶向"]}
+{"label_id": "q0170", "label": "日夜修护", "existing_expressions": ["日夜修护", "日夜修复", "日夜兼修"]}
+{"label_id": "q0171", "label": "夜间修护", "existing_expressions": ["夜间修护", "夜间修复"]}
+{"label_id": "q0172", "label": "夜间节律修护", "existing_expressions": ["昼夜", "节律"]}
+{"label_id": "q0173", "label": "多维修护", "existing_expressions": ["多维", "多通路", "叠加", "多重", "多链路"]}
+{"label_id": "q0174", "label": "抑制酪氨酸酶活性", "existing_expressions": ["抑制 源头 酪氨酸酶 色素细胞 根源 酪氨酸酶活性"]}
+{"label_id": "q0175", "label": "抗氧化自由基", "existing_expressions": ["抗氧 自由基 氧化 多巴 抗光老化"]}
+{"label_id": "q0176", "label": "抗炎性色素沉着", "existing_expressions": ["抗炎 炎症 控炎"]}
+{"label_id": "q0177", "label": "组织黑色素传递", "existing_expressions": ["切断 阻断 传递 运输 转运 浮出 转移"]}
+{"label_id": "q0178", "label": "淡化还原黑色素", "existing_expressions": ["还原 击退 分解 淡退 淡褪 击破"]}
+{"label_id": "q0179", "label": "角质层表皮层代谢", "existing_expressions": ["角质层 代谢 磨皮 脱落 去角质 表皮层 剥落"]}
+{"label_id": "q0180", "label": "通路阶段", "existing_expressions": ["美白通路 美白阶段 通路"]}
+{"label_id": "q0181", "label": "全通路", "existing_expressions": ["全链路 全通路 通路全面 所有通路 全肤美白"]}
+{"label_id": "q0182", "label": "多通路", "existing_expressions": ["多通路 多链路 层层"]}
+{"label_id": "q0183", "label": "精准靶向", "existing_expressions": ["局部 精准 靶向 定向 狙击"]}
+{"label_id": "q0184", "label": "2通路", "existing_expressions": ["2大通路 两大通路 双通路 二维 两维 双重 2大环节 两大环节"]}
+{"label_id": "q0185", "label": "3通路", "existing_expressions": ["3大通路 三大通路 3通路 三通路 3维 三维 3重 三重 3层 三层 3大环节 三大环节"]}
+{"label_id": "q0186", "label": "4通路", "existing_expressions": ["4大通路 四大通路 4通路 四通路 4维 四维 4重 四重 4层 四层 4大环节 四大环节"]}
+{"label_id": "q0187", "label": "5通路", "existing_expressions": ["5大通路 五大通路 5通路 五通路 5维 五维 5重 五重 5层 五层 5大环节 五大环节"]}
+{"label_id": "q0188", "label": "6通路", "existing_expressions": ["6大通路 六大通路 6通路 六通路 6维 六维 6重 六重 6层 六层 6大环节 六大环节"]}
+{"label_id": "q0189", "label": "7通路", "existing_expressions": ["7大通路 七大通路 7通路 七通路 7维 七维 7重 七重 7层 七层 7大环节 七大环节"]}
+{"label_id": "q0190", "label": "以油养肤", "existing_expressions": ["以油养肤", "油敷"]}
+{"label_id": "q0191", "label": "刷酸", "existing_expressions": ["刷酸"]}
+{"label_id": "q0192", "label": "一瓶多效", "existing_expressions": ["一瓶多效"]}
+{"label_id": "q0193", "label": "维E", "existing_expressions": ["维生素E", "维e", "维E", "维生素e", "VE"]}
+{"label_id": "q0194", "label": "视黄醇A醇", "existing_expressions": ["视黄醇", "A醇", "维A酸", "a醇", "维a酸", "A酯", "a酯", "A醛", "a醛", "A酸", "a酸"]}
+{"label_id": "q0195", "label": "莲胚芽", "existing_expressions": ["莲胚芽"]}
+{"label_id": "q0196", "label": "玻色因", "existing_expressions": ["玻色因"]}
+{"label_id": "q0197", "label": "孚玻因", "existing_expressions": ["孚玻因"]}
+{"label_id": "q0198", "label": "麦角硫因", "existing_expressions": ["麦角硫因"]}
+{"label_id": "q0199", "label": "多肽", "existing_expressions": ["多肽", "三肽", "四肽", "五肽"]}
+{"label_id": "q0200", "label": "铜肽", "existing_expressions": ["铜肽"]}
+{"label_id": "q0201", "label": "蓝铜胜肽", "existing_expressions": ["蓝铜胜肽"]}
+{"label_id": "q0202", "label": "胜肽", "existing_expressions": ["胜肽"]}
+{"label_id": "q0203", "label": "寡肽", "existing_expressions": ["寡肽"]}
+{"label_id": "q0204", "label": "二列酵母", "existing_expressions": ["二列酵母"]}
+{"label_id": "q0205", "label": "酵母提取物", "existing_expressions": ["酵母提取物", "酵母菌", "pitera"]}
+{"label_id": "q0206", "label": "神经酰胺", "existing_expressions": ["神经酰胺"]}
+{"label_id": "q0207", "label": "B5", "existing_expressions": ["B5", "泛醇"]}
+{"label_id": "q0208", "label": "依客多因", "existing_expressions": ["依客多因", "依克多因"]}
+{"label_id": "q0209", "label": "egf", "existing_expressions": ["egf", "生长因子"]}
+{"label_id": "q0210", "label": "鼠理糖", "existing_expressions": ["鼠理糖", "鼠李糖"]}
+{"label_id": "q0211", "label": "海藻糖", "existing_expressions": ["海藻糖"]}
+{"label_id": "q0212", "label": "硫糖铝", "existing_expressions": ["硫糖铝"]}
+{"label_id": "q0213", "label": "油橄榄", "existing_expressions": ["油橄榄", "橄榄叶"]}
+{"label_id": "q0214", "label": "透明质酸钠", "existing_expressions": ["透明质酸钠"]}
+{"label_id": "q0215", "label": "胶原肽", "existing_expressions": ["胶原肽"]}
+{"label_id": "q0216", "label": "活性肽", "existing_expressions": ["活性肽"]}
+{"label_id": "q0217", "label": "马齿苋", "existing_expressions": ["马齿苋"]}
+{"label_id": "q0218", "label": "积雪草", "existing_expressions": ["积雪草"]}
+{"label_id": "q0219", "label": "海茴香", "existing_expressions": ["海茴香"]}
+{"label_id": "q0220", "label": "藻类提取物", "existing_expressions": ["小球藻", "藻提取"]}
+{"label_id": "q0221", "label": "生育酚", "existing_expressions": ["生育酚"]}
+{"label_id": "q0222", "label": "肌醇", "existing_expressions": ["肌醇"]}
+{"label_id": "q0223", "label": "红没药醇", "existing_expressions": ["红没药醇"]}
+{"label_id": "q0224", "label": "清衡素", "existing_expressions": ["清衡素"]}
+{"label_id": "q0225", "label": "玻尿酸", "existing_expressions": ["玻尿酸", "透明质酸"]}
+{"label_id": "q0226", "label": "波尔多树", "existing_expressions": ["波尔多树"]}
+{"label_id": "q0227", "label": "花萃", "existing_expressions": ["花萃"]}
+{"label_id": "q0228", "label": "A醇", "existing_expressions": ["维A", "A醇", "A醛", "A酯", "视黄醇", "视黄醛"]}
+{"label_id": "q0229", "label": "艾地苯", "existing_expressions": ["艾地苯", "羟癸基泛醌"]}
+{"label_id": "q0230", "label": "山茶花", "existing_expressions": ["山茶花"]}
+{"label_id": "q0231", "label": "海洋堇", "existing_expressions": ["海洋堇"]}
+{"label_id": "q0232", "label": "胶原蛋白", "existing_expressions": ["胶原蛋白"]}
+{"label_id": "q0233", "label": "氨基酸", "existing_expressions": ["氨基酸"]}
+{"label_id": "q0234", "label": "角鲨烷", "existing_expressions": ["角鲨烷"]}
+{"label_id": "q0235", "label": "虾青素", "existing_expressions": ["虾青素"]}
+{"label_id": "q0236", "label": "传明酸", "existing_expressions": ["传明酸"]}
+{"label_id": "q0237", "label": "甘油", "existing_expressions": ["甘油"]}
+{"label_id": "q0238", "label": "甘露糖", "existing_expressions": ["甘露糖"]}
+{"label_id": "q0239", "label": "377", "existing_expressions": ["377 苯乙基间苯二酚"]}
+{"label_id": "q0240", "label": "阿魏酸", "existing_expressions": ["阿魏酸"]}
+{"label_id": "q0241", "label": "熊果苷", "existing_expressions": ["熊果苷"]}
+{"label_id": "q0242", "label": "传明酸", "existing_expressions": ["传明酸"]}
+{"label_id": "q0243", "label": "曲酸", "existing_expressions": ["曲酸"]}
+{"label_id": "q0244", "label": "光甘草定", "existing_expressions": ["光甘草定"]}
+{"label_id": "q0245", "label": "酰本胺", "existing_expressions": ["酰本胺"]}
+{"label_id": "q0246", "label": "酵母提取物", "existing_expressions": ["酵母提取物"]}
+{"label_id": "q0247", "label": "CL302", "existing_expressions": ["CL302 302"]}
+{"label_id": "q0248", "label": "4MSK", "existing_expressions": ["4MSK"]}
+{"label_id": "q0249", "label": "白藜芦醇", "existing_expressions": ["白藜芦醇"]}
+{"label_id": "q0250", "label": "虾青素", "existing_expressions": ["虾青素"]}
+{"label_id": "q0251", "label": "肌肽", "existing_expressions": ["肌肽"]}
+{"label_id": "q0252", "label": "VC及衍生物", "existing_expressions": ["VC及衍生物 VC 维C"]}
+{"label_id": "q0253", "label": "维生素E", "existing_expressions": ["维生素E VE 维E"]}
+{"label_id": "q0254", "label": "壬二酸", "existing_expressions": ["壬二酸"]}
+{"label_id": "q0255", "label": "烟酰胺", "existing_expressions": ["烟酰胺"]}
+{"label_id": "q0256", "label": "AA2G", "existing_expressions": ["AA2G 抗坏血酸葡糖苷"]}
+{"label_id": "q0257", "label": "3-o-乙基抗坏血酸", "existing_expressions": ["3-o-乙基抗坏血酸"]}
+{"label_id": "q0258", "label": "果酸", "existing_expressions": ["果酸"]}
+{"label_id": "q0259", "label": "水杨酸", "existing_expressions": ["水杨酸"]}
+{"label_id": "q0260", "label": "氨基酸", "existing_expressions": ["氨基酸"]}
+{"label_id": "q0261", "label": "火山岩/泥", "existing_expressions": ["火山岩", "火山泥", "火山白泥", "火山黑泥", "矿物泥"]}
+{"label_id": "q0262", "label": "炭", "existing_expressions": ["活性炭", "活性碳", "炭黑", "碳黑", "竹炭", "橡木炭"]}
+{"label_id": "q0263", "label": "温和植物成分", "existing_expressions": ["植物", "草本", "薄荷", "石榴", "黄瓜", "茶", "金盏花", "芦荟", "玫瑰", "米", "柠檬", "葡萄", "紫苏", "丹参", "山茶花", "蜂蜜", "百合", "迷迭香", "酪梨", "植萃", "马鞭草", "积雪草", "菊花", "大豆"]}
+{"label_id": "q0264", "label": "磨砂颗粒", "existing_expressions": ["柔珠", "棉花籽", "磨砂", "微磨皮钻石粉", "自然结晶", "金刚粉"]}
+{"label_id": "q0265", "label": "玻尿酸", "existing_expressions": ["玻尿酸 波尿酸 透明质酸"]}
+{"label_id": "q0266", "label": "苦参碱", "existing_expressions": ["苦参碱", "苦参", "参"]}
+{"label_id": "q0267", "label": "海泥", "existing_expressions": ["海泥", "海盐", "海藻"]}
+{"label_id": "q0268", "label": "水杨酸", "existing_expressions": ["水杨酸"]}
+{"label_id": "q0269", "label": "烟酰胺", "existing_expressions": ["烟酰胺", "烟酰安", "烟先安", "烟先胺"]}
+{"label_id": "q0270", "label": "水", "existing_expressions": ["水动力", "海洋", "矿物水", "积雪", "凝水", "冰川矿泉"]}
+{"label_id": "q0271", "label": "皂基", "existing_expressions": ["皂基"]}
+{"label_id": "q0272", "label": "皂氨复配", "existing_expressions": ["皂氨复配", "复配"]}
+{"label_id": "q0273", "label": "其他酸", "existing_expressions": ["碳酸", "烟酸"]}
+{"label_id": "q0274", "label": "神经酰胺", "existing_expressions": ["神经酰胺"]}
+{"label_id": "q0275", "label": "硫磺", "existing_expressions": ["硫磺"]}
+{"label_id": "q0276", "label": "酵素", "existing_expressions": ["酵素"]}
+{"label_id": "q0277", "label": "小苏打", "existing_expressions": ["小苏打"]}
+{"label_id": "q0278", "label": "甘油", "existing_expressions": ["甘油"]}
+{"label_id": "q0279", "label": "维生素", "existing_expressions": ["VC", "VE"]}
+{"label_id": "q0280", "label": "B5", "existing_expressions": ["B5"]}
+{"label_id": "q0281", "label": "Q10", "existing_expressions": ["Q10"]}
+{"label_id": "q0282", "label": "菠萝蛋白酶", "existing_expressions": ["菠萝蛋白酶"]}
+{"label_id": "q0283", "label": "PDRN", "existing_expressions": ["PDRN", "pdrn"]}
+{"label_id": "q0284", "label": "胶原蛋白", "existing_expressions": ["胶原蛋白"]}
+{"label_id": "q0285", "label": "阶段性", "existing_expressions": ["缓慢", "慢慢", "一点点", "逐渐", "逐步", "渐渐", "一段时间", "长时间", "阶段", "28天", "周期", "四周", "长线", "4周"]}
+{"label_id": "q0286", "label": "快", "existing_expressions": ["急救", "紧急", "三天", "3天", "24小时", "即效", "7天", "72小时", "48小时", "一周", "1周", "立竿见影"]}
+{"label_id": "q0287", "label": "强", "existing_expressions": ["效果明显", "效果显著", "效果好", "效果强", "密集", "硬核"]}
+{"label_id": "q0288", "label": "泛指肤质变好", "existing_expressions": ["皮肤", "肌肤", "肤质", "质感", "质地", "肌态", "表皮", "表面", "看起来", "看上去"]}
+{"label_id": "q0289", "label": "饱满有弹性", "existing_expressions": ["有弹性", "充满弹性", "弹弹的", "弹润", "丰盈", "饱满", "嘭弹", "弾滑", "充盈", "弹力", "Q弹", "澎弹", "撑盈", "少女感"]}
+{"label_id": "q0290", "label": "光滑", "existing_expressions": ["不粗糙", "滑"]}
+{"label_id": "q0291", "label": "更强韧", "existing_expressions": ["健康", "稳定", "健韧", "强韧", "强化", "增强", "加强"]}
+{"label_id": "q0292", "label": "皮肤细腻", "existing_expressions": ["细腻", "幼滑", "柔滑", "平滑", "纹理", "不粗糙"]}
+{"label_id": "q0293", "label": "更柔嫩", "existing_expressions": ["细嫩", "嫩肤", "皮肤变嫩", "婴儿肌", "柔嫩", "嫩嫩"]}
+{"label_id": "q0294", "label": "细致毛孔", "existing_expressions": ["变细", "变小", "干净", "收缩", "细致", "隐形", "减小", "显小"]}
+{"label_id": "q0295", "label": "有光泽", "existing_expressions": ["有光泽", "水光肌", "光润", "光嫩", "透亮", "莹亮", "有气色"]}
+{"label_id": "q0296", "label": "增强耐受", "existing_expressions": ["耐受", "抗造", "抗压", "减少应激"]}
+{"label_id": "q0297", "label": "保湿/水润", "existing_expressions": ["保湿", "水光", "水润", "水嫩", "不起皮", "不干燥", "水盈", "深润", "莹润", "凝润", "锁水"]}
+{"label_id": "q0298", "label": "出油减少", "existing_expressions": ["控油", "去油", "防止出油", "净油", "减少油脂分泌", "改善出油", "不出油"]}
+{"label_id": "q0299", "label": "消除水肿", "existing_expressions": ["水肿", "浮肿"]}
+{"label_id": "q0300", "label": "妆容服帖", "existing_expressions": ["妆容服帖", "不卡粉", "不卡纹", "持妆", "粉底"]}
+{"label_id": "q0301", "label": "均匀肤色", "existing_expressions": ["均匀肤色", "肤色均匀"]}
+{"label_id": "q0302", "label": "纹路减少", "existing_expressions": ["眼纹", "皱纹", "细纹", "动态纹", "表情纹", "法令纹", "川字纹", "抬头纹", "眼周纹", "内眼角纹", "泪沟纹", "颈纹", "深层纹", "干纹", "微纹"]}
+{"label_id": "q0303", "label": "纹路减少-数量", "existing_expressions": ["眼纹", "皱纹", "细纹", "动态纹", "表情纹", "法令纹", "川字纹", "抬头纹", "眼周纹", "内眼角纹", "泪沟纹", "颈纹", "深层纹", "干纹", "微纹"]}
+{"label_id": "q0304", "label": "纹路减少-面积", "existing_expressions": ["眼纹", "皱纹", "细纹", "动态纹", "表情纹", "法令纹", "川字纹", "抬头纹", "眼周纹", "内眼角纹", "泪沟纹", "颈纹", "深层纹", "干纹", "微纹"]}
+{"label_id": "q0305", "label": "纹路减少-长度", "existing_expressions": ["眼纹", "皱纹", "细纹", "动态纹", "表情纹", "法令纹", "川字纹", "抬头纹", "眼周纹", "内眼角纹", "泪沟纹", "颈纹", "深层纹", "干纹", "微纹"]}
+{"label_id": "q0306", "label": "紧致", "existing_expressions": ["紧致", "紧实", "不松", "不垮", "紧塑", "弹润", "澎弹", "嘭嘭"]}
+{"label_id": "q0307", "label": "眼周提亮", "existing_expressions": ["眼周肤色均匀", "亮眼周", "亮泽", "提亮", "淡黑", "抑黑", "变白", "焕白", "净白", "亮白", "黑眼圈淡"]}
+{"label_id": "q0308", "label": "年轻神采", "existing_expressions": ["靓丽", "熠采", "亮采", "明眸", "睛彩", "“睛”彩", "神采", "显年轻", "莹润", "光彩", "年轻活力", "去除岁月痕迹", "年轻5岁", "年轻10岁"]}
+{"label_id": "q0309", "label": "不痒", "existing_expressions": ["痒"]}
+{"label_id": "q0310", "label": "淡泛红", "existing_expressions": ["泛红", "红血丝", "发红"]}
+{"label_id": "q0311", "label": "不红肿", "existing_expressions": ["红肿", "红疙瘩", "起红点", "肿得"]}
+{"label_id": "q0312", "label": "不刺痛", "existing_expressions": ["刺痛", "刺痒", "刺激"]}
+{"label_id": "q0313", "label": "不灼热", "existing_expressions": ["发烫", "灼热"]}
+{"label_id": "q0314", "label": "预防过敏", "existing_expressions": ["过敏", "敏感度", "过m", "m感", "过min", "min感"]}
+{"label_id": "q0315", "label": "缓解过敏", "existing_expressions": ["缓解过敏", "舒敏", "舒缓敏感", "预防过敏", "降低敏感", "降低肌肤敏感"]}
+{"label_id": "q0316", "label": "镇静肌肤", "existing_expressions": ["镇静", "舒缓"]}
+{"label_id": "q0317", "label": "去粉刺", "existing_expressions": ["粉刺"]}
+{"label_id": "q0318", "label": "祛痤疮", "existing_expressions": ["痤疮"]}
+{"label_id": "q0319", "label": "去闭口", "existing_expressions": ["闭口"]}
+{"label_id": "q0320", "label": "祛痘", "existing_expressions": ["祛痘", "去痘", "治痘", "清痘", "消痘", "痘消", "痘清", "痘去"]}
+{"label_id": "q0321", "label": "不复发", "existing_expressions": ["不复发", "不再敏感", "敏皮再见", "告别敏皮", "告别敏感", "不再m感"]}
+{"label_id": "q0322", "label": "膏状", "existing_expressions": ["冰沙", "冰淇淋", "浓稠", "稀", "奶油", "慕斯", "乳酪", "奶冻", "酸奶", "炼乳"]}
+{"label_id": "q0323", "label": "霜状", "existing_expressions": ["乳霜", "霜"]}
+{"label_id": "q0324", "label": "啫喱状", "existing_expressions": ["啫喱", "着哩", "凝胶", "果冻"]}
+{"label_id": "q0325", "label": "乳液状", "existing_expressions": ["乳液", "乳"]}
+{"label_id": "q0326", "label": "水包油", "existing_expressions": ["水包油"]}
+{"label_id": "q0327", "label": "油包水", "existing_expressions": ["油包水"]}
+{"label_id": "q0328", "label": "磨砂颗粒", "existing_expressions": ["柔珠", "棉花籽", "磨砂", "微磨皮钻石粉", "自然结晶", "金刚粉"]}
+{"label_id": "q0329", "label": "吸收快", "existing_expressions": ["吸收", "渗透"]}
+{"label_id": "q0330", "label": "拔干相关", "existing_expressions": ["不拔干", "不干"]}
+{"label_id": "q0331", "label": "搓泥相关", "existing_expressions": ["搓泥"]}
+{"label_id": "q0332", "label": "黏腻厚重", "existing_expressions": ["黏", "黏腻", "厚", "厚重", "粘"]}
+{"label_id": "q0333", "label": "清爽轻薄", "existing_expressions": ["轻薄", "清爽", "清透", "轻爽", "不黏稠", "不黏腻", "不厚重", "轻柔", "无负担", "水薄", "0黏腻", "不闷痘", "0闷痘", "没有负担感", "无负担感", "空气感", "不油腻", "轻如空气", "一抹化水", "轻盈", "无油光", "不粘腻"]}
+{"label_id": "q0334", "label": "流动性强", "existing_expressions": ["流动性强", "流动性好", "易推开", "好推开", "高延展性"]}
+{"label_id": "q0335", "label": "细腻", "existing_expressions": ["细腻", "绵密", "绵厚"]}
+{"label_id": "q0336", "label": "丝滑", "existing_expressions": ["丝滑", "顺滑", "柔滑", "丝绒"]}
+{"label_id": "q0337", "label": "搓泥", "existing_expressions": ["搓泥", "泥"]}
+{"label_id": "q0338", "label": "软糯", "existing_expressions": ["软糯"]}
+{"label_id": "q0339", "label": "哑光", "existing_expressions": ["哑光", "柔雾", "丝绒"]}
+{"label_id": "q0340", "label": "乳化", "existing_expressions": ["乳化"]}
+{"label_id": "q0341", "label": "滋润", "existing_expressions": ["滋润", "滋养", "润泽", "柔润", "沁润", "莹润", "盈润", "爆水"]}
+{"label_id": "q0342", "label": "亲肤", "existing_expressions": ["亲肤", "亲和", "温和"]}
+{"label_id": "q0343", "label": "安全", "existing_expressions": ["安全", "放心", "安心"]}
+{"label_id": "q0344", "label": "轻薄", "existing_expressions": ["轻薄 清爽 清透 轻爽 不黏稠 不黏腻"]}
+{"label_id": "q0345", "label": "适合各种肤质", "existing_expressions": ["各种肤质 所有肤质 各类肤质"]}
+{"label_id": "q0346", "label": "香味好闻", "existing_expressions": ["好闻 香香的 香味好 花香 香味 很香 香气宜人 芬芳 调香 香气"]}
+{"label_id": "q0347", "label": "温和不刺激", "existing_expressions": ["温和 不刺激 无刺激 亲肤"]}
+{"label_id": "q0348", "label": "敏感肌可用", "existing_expressions": ["敏感肌可用 敏感肌适用 敏感肌耐受 敏感肌很友好"]}
+{"label_id": "q0349", "label": "无添加", "existing_expressions": ["无添加 不添加 未添加 无香料 不含香料 不添加香料"]}
+{"label_id": "q0350", "label": "日天可用", "existing_expressions": ["白天可 日夜 日间 早晚 白天也可"]}
+{"label_id": "q0351", "label": "孕期可用", "existing_expressions": ["孕期 怀孕 哺乳期 孕期可用 妈妈"]}
+{"label_id": "q0352", "label": "纯度", "existing_expressions": ["纯度", "提纯", "精纯"]}
+{"label_id": "q0353", "label": "浓度", "existing_expressions": ["浓度", "猛药", "含量"]}
+{"label_id": "q0354", "label": "多维组合", "existing_expressions": ["叠加", "多维", "多通路", "多层", "多重"]}
+{"label_id": "q0355", "label": "稳定", "existing_expressions": ["成分稳定", "不用避光", "不惧光热", "不感光", "不避光"]}
+{"label_id": "q0356", "label": "黄金配比", "existing_expressions": ["配比", "组合"]}
+{"label_id": "q0357", "label": "大牌同款", "existing_expressions": ["大牌", "知名品牌", "品牌"]}
+{"label_id": "q0358", "label": "安全无添加", "existing_expressions": ["安全", "无添加", "无硅油", "无酒精", "零硅油", "零酒精"]}
+{"label_id": "q0359", "label": "弱酸性", "existing_expressions": ["弱酸", "平衡PH值"]}
+{"label_id": "q0360", "label": "活性", "existing_expressions": ["新鲜", "鲜活", "保鲜", "成分活性", "活性成分", "太空包装", "锁鲜", "真空", "无菌"]}
+{"label_id": "q0361", "label": "安全", "existing_expressions": ["安全", "放心", "安心", "温和", "无刺激", "低刺激"]}
+{"label_id": "q0362", "label": "专利成分", "existing_expressions": ["专利"]}
+{"label_id": "q0363", "label": "温和安全", "existing_expressions": ["温和", "安抚", "舒敏", "低敏"]}
+{"label_id": "q0364", "label": "孕妇可用", "existing_expressions": ["孕妇", "妈妈", "怀孕"]}
+{"label_id": "q0365", "label": "敏感肌可用", "existing_expressions": ["敏感肌", "m感肌", "min感肌"]}
+{"label_id": "q0366", "label": "温和植物成分", "existing_expressions": ["植物", "草本", "薄荷", "石榴", "黄瓜", "茶", "金盏花", "芦荟", "玫瑰", "米", "柠檬", "葡萄", "紫苏", "丹参", "山茶花", "蜂蜜", "百合", "迷迭香", "酪梨", "植萃", "马鞭草", "积雪草", "菊花", "大豆"]}
+{"label_id": "q0367", "label": "大牌", "existing_expressions": ["大牌", "知名品牌", "品牌", "顶流", "巨头"]}
+{"label_id": "q0368", "label": "背书", "existing_expressions": ["背书", "认证", "值得信赖", "文献", "论文", "药监局", "第三方", "国妆特进字", "国妆网备进字", "备案", "认证标识", "化妆品安全规范", "专业机构检测", "抽检", "中科院"]}
+{"label_id": "q0369", "label": "真人测试", "existing_expressions": ["真人", "测试", "素人", "亲测", "临床测试", "临床实验", "肌肤测试", "试受者", "科学测试", "人认同"]}
+{"label_id": "q0370", "label": "体外测试", "existing_expressions": ["体外测试"]}
+{"label_id": "q0371", "label": "科技科研", "existing_expressions": ["科学", "科技", "科研", "实验", "研发中心"]}
+{"label_id": "q0372", "label": "奖项", "existing_expressions": ["大赏", "获奖", "推荐", "口碑认证", "奖项", "榜单", "回购榜"]}
+{"label_id": "q0373", "label": "网红爆款", "existing_expressions": ["网红", "爆款", "同款", "推荐", "安利", "力荐", "挚爱"]}
+{"label_id": "q0374", "label": "医生", "existing_expressions": ["医生", "医师"]}
+{"label_id": "q0375", "label": "专家专利", "existing_expressions": ["专利", "专业", "专研", "钻研", "权威", "专注", "专家", "研发", "科学家", "皮肤学专家"]}
+{"label_id": "q0376", "label": "平价", "existing_expressions": ["平价", "开价", "性价比", "大碗", "亲民", "平替"]}
+{"label_id": "q0377", "label": "贵价", "existing_expressions": ["贵", "价格高", "贵妇", "预算足"]}
+{"label_id": "q0378", "label": "蓝光辐射", "existing_expressions": ["辐射", "蓝光", "手机", "电脑"]}
+{"label_id": "q0379", "label": "外部环境影响", "existing_expressions": ["换季", "灰尘", "雾霾", "污染", "口罩", "疫情"]}
+{"label_id": "q0380", "label": "熬夜", "existing_expressions": ["熬夜", "通宵", "零点", "晚睡", "作息紊乱"]}
+{"label_id": "q0381", "label": "加班", "existing_expressions": ["加班", "通勤时间长", "上班时间长", "996", "工作忙", "劳累"]}
+{"label_id": "q0382", "label": "焦虑", "existing_expressions": ["压力", "焦虑", "情绪"]}
+{"label_id": "q0383", "label": "日晒", "existing_expressions": ["晒黑", "晒后", "晒红", "日晒", "晒伤", "紫外线", "阳光", "户外", "防晒不当"]}
+{"label_id": "q0384", "label": "换季期", "existing_expressions": ["换季", "冷热交替", "季节变化"]}
+{"label_id": "q0385", "label": "饮食", "existing_expressions": ["辛辣", "饮食刺激"]}
+{"label_id": "q0386", "label": "发热发烫", "existing_expressions": ["发热", "发烫"]}
+{"label_id": "q0387", "label": "口罩", "existing_expressions": ["口罩", "疫情"]}
+{"label_id": "q0388", "label": "花粉粉尘", "existing_expressions": ["花粉", "粉尘"]}
+{"label_id": "q0389", "label": "空气污染", "existing_expressions": ["灰尘", "雾霾", "污染"]}
+{"label_id": "q0390", "label": "错误护肤", "existing_expressions": ["错误护肤"]}
+{"label_id": "q0391", "label": "早C晚A受损", "existing_expressions": ["早C晚A"]}
+{"label_id": "q0392", "label": "猛药或刷酸受损", "existing_expressions": ["猛药", "高功效", "刷酸", "果酸"]}
+{"label_id": "q0393", "label": "过度清洁", "existing_expressions": ["过度清洁", "清洁过度", "洗脸过度", "洁面过度"]}
+{"label_id": "q0394", "label": "化妆", "existing_expressions": ["高频化妆", "化妆残留"]}
+{"label_id": "q0395", "label": "医美", "existing_expressions": ["特殊美容", "皮肤管理", "美容项目", "项目后", "医美", "光子嫩肤", "点阵激光", "溶脂", "线雕", "瘦脸针", "红蓝光", "微针", "果酸焕肤", "隆鼻", "双眼皮", "水光针", "美白针", "超皮秒", "热玛吉"]}
+{"label_id": "q0396", "label": "生理期", "existing_expressions": ["生理期", "姨妈"]}
+{"label_id": "q0397", "label": "年龄增长", "existing_expressions": ["衰老", "老化", "年龄增长", "熟龄", "初老", "老龄", "不年轻", "不再年轻", "s老", "k衰", "抗s", "抗L", "K老", "抗lao", "kang老"]}
+{"label_id": "q0398", "label": "细胞代谢减缓", "existing_expressions": ["代谢", "细胞", "活力"]}
+{"label_id": "q0399", "label": "内分泌失调", "existing_expressions": ["内分泌失调", "青春期"]}
+{"label_id": "q0400", "label": "泛指过敏", "existing_expressions": ["过敏", "敏感", "易敏", "敏皮", "敏感肌", "瓷敏", "敏损", "敏脆", "敏干", "敏油", "敏弱", "过m", "m感", "过min", "min感"]}
+{"label_id": "q0401", "label": "出行场景", "existing_expressions": ["旅游 出国 出游 旅行 海边 海滩 海岛 玩水 沙滩 游泳 冲浪 帆船"]}
+{"label_id": "q0402", "label": "眼部微运动", "existing_expressions": ["微运动", "眨眼", "wink"]}
+{"label_id": "q0403", "label": "频繁夸张表情", "existing_expressions": ["爱笑", "大笑", "开心", "伤心", "瘪嘴", "惊喜", "错愕", "皱眉", "表情"]}
+{"label_id": "q0404", "label": "用眼过度", "existing_expressions": ["肌肉运动", "用眼过度", "用眼频繁", "高负荷", "超负荷", "超负生活", "重复拉扯", "揉搓眼部"]}
+{"label_id": "q0405", "label": "美妆不当", "existing_expressions": ["护肤不当", "洗卸眼妆", "眼部彩妆", "化妆", "卸妆"]}
+{"label_id": "q0406", "label": "光老化", "existing_expressions": ["紫外线", "日光", "光老化", "太阳"]}
+{"label_id": "q0407", "label": "屏幕辐射", "existing_expressions": ["手机", "电脑", "刷屏", "煲剧", "刷剧", "屏幕", "辐射"]}
+{"label_id": "q0409", "label": "年轻", "existing_expressions": ["18岁", "20岁", "25岁", "越早越好", "00后", "95后", "初老", "任何年龄"]}
+{"label_id": "q0410", "label": "学生", "existing_expressions": ["学生", "舍友", "同学", "毕业", "高中", "大学", "留学", "读书"]}
+{"label_id": "q0411", "label": "白领", "existing_expressions": ["白领", "工作", "上班", "打工人", "小白"]}
+{"label_id": "q0412", "label": "熟龄", "existing_expressions": ["30岁", "35岁", "40岁", "熟龄", "轻熟", "贵妇"]}
+{"label_id": "q0413", "label": "宝妈", "existing_expressions": ["宝妈", "孕妇", "妈妈"]}
+{"label_id": "q0414", "label": "即刻", "existing_expressions": ["立刻 马上 即刻"]}
+{"label_id": "q0415", "label": "一周以内", "existing_expressions": ["24小时 48小时 7天 一周"]}
+{"label_id": "q0416", "label": "一周到一个月", "existing_expressions": ["14天 21天 两周 三周 四周 3周 4周 28天 30天"]}
+{"label_id": "q0417", "label": "一个月以上", "existing_expressions": ["两个月 三个月 四个月 2个月 3个月 4个月 60天 90天 120天 8周 12周"]}
+{"label_id": "q0418", "label": "一天", "existing_expressions": ["24小时"]}
+{"label_id": "q0419", "label": "两天", "existing_expressions": ["48小时"]}
+{"label_id": "q0420", "label": "一周", "existing_expressions": ["一周 7天"]}
+{"label_id": "q0421", "label": "两周", "existing_expressions": ["二周 两周 14天"]}
+{"label_id": "q0422", "label": "三周", "existing_expressions": ["三周 21天 3周"]}
+{"label_id": "q0423", "label": "四周", "existing_expressions": ["四周 28天 4周"]}
+{"label_id": "q0424", "label": "8周", "existing_expressions": ["8周 八周"]}
+{"label_id": "q0425", "label": "12周", "existing_expressions": ["12周 十二周"]}
+{"label_id": "q0426", "label": "一个月", "existing_expressions": ["1个月 一个月 30天 31天"]}
+{"label_id": "q0427", "label": "两个月", "existing_expressions": ["2个月 两个月 60天"]}
+{"label_id": "q0428", "label": "三个月", "existing_expressions": ["3个月 三个月 90天"]}
+{"label_id": "q0429", "label": "四个月", "existing_expressions": ["4个月 四个月"]}
+{"label_id": "q0430", "label": "跨季", "existing_expressions": ["跨季 春秋 秋冬 春夏季"]}
+{"label_id": "q0431", "label": "春天", "existing_expressions": ["春天 春日 春季"]}
+{"label_id": "q0432", "label": "夏天", "existing_expressions": ["夏天 夏日 夏季"]}
+{"label_id": "q0433", "label": "秋天", "existing_expressions": ["秋天 秋日 秋季"]}
+{"label_id": "q0434", "label": "冬天", "existing_expressions": ["冬天 冬日 冬季"]}
+{"label_id": "q0435", "label": "泛指护肤", "existing_expressions": ["护肤", "保养"]}
+{"label_id": "q0436", "label": "精华", "existing_expressions": ["精华"]}
+{"label_id": "q0437", "label": "水", "existing_expressions": ["爽肤水"]}
+{"label_id": "q0438", "label": "妆前", "existing_expressions": ["妆前"]}
+{"label_id": "q0439", "label": "上妆", "existing_expressions": ["上妆", "粉底", "底妆", "不卡粉"]}
+{"label_id": "q0440", "label": "薄涂", "existing_expressions": ["薄"]}
+{"label_id": "q0441", "label": "厚敷", "existing_expressions": ["厚"]}
+{"label_id": "q0442", "label": "高级", "existing_expressions": ["高端", "高级", "高大上", "上档次", "有质感", "高贵典雅"]}
+{"label_id": "q0443", "label": "份量感", "existing_expressions": ["份量", "分量"]}
+{"label_id": "q0444", "label": "精美", "existing_expressions": ["精美", "完美", "精致"]}
+{"label_id": "q0445", "label": "科技感", "existing_expressions": ["科技"]}
+{"label_id": "q0446", "label": "简约", "existing_expressions": ["简约", "简单", "性冷淡", "干净", "简洁"]}
+{"label_id": "q0447", "label": "漂亮", "existing_expressions": ["美", "漂亮", "高颜值", "yyds", "好看"]}
+{"label_id": "q0448", "label": "低劣", "existing_expressions": ["假", "假货", "造假", "廉价", "塑料感", "划痕", "破损", "简陋"]}
+{"label_id": "q0449", "label": "环保", "existing_expressions": ["环保", "绿色", "可降解"]}
+{"label_id": "q0450", "label": "细节", "existing_expressions": ["细节", "细致", "精致"]}
+{"label_id": "q0451", "label": "难看", "existing_expressions": ["丑", "颜值低", "难看", "浮夸", "low", "鸡肋", "吐槽", "不好看", "不漂亮", "不美观"]}
+{"label_id": "q0452", "label": "天丝/蚕丝", "existing_expressions": ["天丝", "蚕丝", "薄如蝉翼", "贴合", "透明感", "轻薄"]}
+{"label_id": "q0453", "label": "纯棉", "existing_expressions": ["纯棉", "棉质", "实在", "锁水"]}
+{"label_id": "q0454", "label": "塑料质感", "existing_expressions": ["塑料"]}
+{"label_id": "q0455", "label": "金属质感", "existing_expressions": ["金属"]}
+{"label_id": "q0456", "label": "玻璃质感", "existing_expressions": ["玻璃"]}
+{"label_id": "q0457", "label": "瓷质", "existing_expressions": ["陶瓷", "瓷"]}
+{"label_id": "q0459", "label": "罐装", "existing_expressions": ["罐装", "罐身"]}
+{"label_id": "q0460", "label": "管", "existing_expressions": ["管状", "管装"]}
+{"label_id": "q0461", "label": "密封", "existing_expressions": ["密封", "严实"]}
+{"label_id": "q0462", "label": "真空", "existing_expressions": ["真空", "真空包装", "真空按压", "真空锁鲜"]}
+{"label_id": "q0463", "label": "太空舱容器", "existing_expressions": ["太空舱"]}
+{"label_id": "q0464", "label": "摁压", "existing_expressions": ["摁压泵", "按压泵", "压泵", "按压", "摁压"]}
+{"label_id": "q0465", "label": "真空泵", "existing_expressions": ["真空泵"]}
+{"label_id": "q0466", "label": "挤压", "existing_expressions": ["挤"]}
+{"label_id": "q0467", "label": "挖勺取用", "existing_expressions": ["挖勺", "勺子"]}
+{"label_id": "q0468", "label": "用手取用", "existing_expressions": ["用手", "手指"]}
+{"label_id": "q0469", "label": "含量不足", "existing_expressions": ["太轻", "没装满", "装不满", "很轻", "挖掉一块", "挖走一块", "量不足", "不足量", "非常轻", "缺少一块", "缺一块", "含量不足", "缺斤少两"]}
+{"label_id": "q0470", "label": "卫生相关", "existing_expressions": ["干净", "卫生", "脏", "参灰", "掺灰", "积灰"]}
+{"label_id": "q0471", "label": "取用相关", "existing_expressions": ["方便", "简单", "容易", "挤不出", "好挤", "挤太多", "打不开", "按不出", "摁不出", "摁不了", "按不了"]}
+{"label_id": "q0472", "label": "轻便", "existing_expressions": ["携带方便", "轻便", "轻巧", "易携带", "小巧", "可以携带", "带上飞机", "可上飞机"]}
+{"label_id": "q0473", "label": "看不清用量", "existing_expressions": ["看不清", "看不见", "看不到", "估不准", "不知道"]}
+{"label_id": "q0474", "label": "气味浓烈", "existing_expressions": ["浓烈", "浓郁", "爆香", "太香", "香精味", "难闻", "臭", "刺鼻", "刺激"]}
+{"label_id": "q0475", "label": "无气味或气味较淡", "existing_expressions": ["味道", "气味", "香精"]}
+{"label_id": "q0476", "label": "持妆", "existing_expressions": ["定妆 订妆 扒脸 持妆 不脱妆 不花妆 不掉妆 持久 24H 24小时 16H 16小时 一整天"]}
+{"label_id": "q0477", "label": "脱妆", "existing_expressions": ["脱妆 掉妆 花妆"]}
+{"label_id": "q0478", "label": "防水防汗", "existing_expressions": ["防水 防汗 抗汗"]}
+{"label_id": "q0479", "label": "服帖", "existing_expressions": ["服帖 贴合 贴肤"]}
+{"label_id": "q0480", "label": "浮粉", "existing_expressions": ["浮粉"]}
+{"label_id": "q0481", "label": "卡粉", "existing_expressions": ["卡粉"]}
+{"label_id": "q0482", "label": "卡纹", "existing_expressions": ["卡纹"]}
+{"label_id": "q0483", "label": "脱粉", "existing_expressions": ["脱粉 不沾粉 留粉痕"]}
+{"label_id": "q0484", "label": "搓泥", "existing_expressions": ["搓泥 起泥"]}
+{"label_id": "q0485", "label": "斑驳", "existing_expressions": ["斑驳 花妆"]}
+{"label_id": "q0486", "label": "遮瑕", "existing_expressions": ["遮瑕"]}
+{"label_id": "q0487", "label": "不显毛孔", "existing_expressions": ["小 不显 隐形"]}
+{"label_id": "q0488", "label": "假白", "existing_expressions": ["假白 假面 刷墙"]}
+{"label_id": "q0489", "label": "抗氧化", "existing_expressions": ["抗氧 持色 不黯沉 不暗沉"]}
+{"label_id": "q0490", "label": "光滑", "existing_expressions": ["光滑 顺滑 柔滑"]}
+{"label_id": "q0491", "label": "柔软", "existing_expressions": ["柔软"]}
+{"label_id": "q0492", "label": "提亮", "existing_expressions": ["提亮 亮白 变亮 透亮 变白 透白"]}
+{"label_id": "q0493", "label": "修饰肤色", "existing_expressions": ["修饰肤色 修颜 均匀肤色 匀色 匀净"]}
+{"label_id": "q0494", "label": "妆感重", "existing_expressions": ["重 厚"]}
+{"label_id": "q0495", "label": "妆感轻", "existing_expressions": ["轻 薄 透"]}
+{"label_id": "q0496", "label": "出油", "existing_expressions": ["出油 冒油 油光 油腻 泛油"]}
+{"label_id": "q0497", "label": "出汗", "existing_expressions": ["暴汗 出汗 冒汗 汗水"]}
+{"label_id": "q0498", "label": "口罩", "existing_expressions": ["口罩"]}
+{"label_id": "q0499", "label": "遇到水", "existing_expressions": ["水"]}
+{"label_id": "q0500", "label": "不服帖", "existing_expressions": ["浮粉 卡粉 卡纹 不服帖"]}
+{"label_id": "q0501", "label": "防水防汗", "existing_expressions": ["防水 防汗 抗汗"]}
+{"label_id": "q0502", "label": "控油", "existing_expressions": ["控油 抗油 不油 不出油 不泛油 没油 没有油"]}
+{"label_id": "q0503", "label": "保湿", "existing_expressions": ["保湿 滋润 润泽 不干 不起皮"]}
+{"label_id": "q0504", "label": "专研科技", "existing_expressions": ["专研 科技"]}
+{"label_id": "q0505", "label": "网膜科技", "existing_expressions": ["成膜 妆膜 网膜 网面 持妆网"]}
+{"label_id": "q0506", "label": "水油平衡", "existing_expressions": ["水油平衡"]}
+{"label_id": "q0507", "label": "配方", "existing_expressions": ["配方"]}
+{"label_id": "q0508", "label": "初恋妆", "existing_expressions": ["初恋妆 初恋脸 初恋感"]}
+{"label_id": "q0509", "label": "磨皮感", "existing_expressions": ["磨皮感 磨皮效果 磨皮妆效"]}
+{"label_id": "q0510", "label": "自然肌", "existing_expressions": ["裸妆 裸妆效果 自然感 自然妆 自然效果 轻妆 少女肌 裸肌 陶瓷肌 伪素颜 氧气感", "天生 妈生 原生"]}
+{"label_id": "q0512", "label": "光泽感", "existing_expressions": ["宝石 光泽 光感 闪光 亮光 抛光肌 高光肌 流光肌 微光 水凝 水光 蜜光"]}
+{"label_id": "q0513", "label": "奶油肌", "existing_expressions": ["奶油 奶霜"]}
+{"label_id": "q0514", "label": "雾面妆", "existing_expressions": ["雾面 哑光"]}
+{"label_id": "q0515", "label": "奶雾肌", "existing_expressions": ["柔雾 柔焦 丝绒 缎面 丝缎 绸 丝雾 奶雾"]}
+{"label_id": "q0516", "label": "好推开", "existing_expressions": ["好推 易推 方便推 易抹开 方便抹开 好涂 方便涂 易涂 延展性好 流动性好"]}
+{"label_id": "q0517", "label": "细腻", "existing_expressions": ["细腻"]}
+{"label_id": "q0518", "label": "顺滑", "existing_expressions": ["顺 滑"]}
+{"label_id": "q0519", "label": "亲肤", "existing_expressions": ["亲肤 融合"]}
+{"label_id": "q0520", "label": "清透", "existing_expressions": ["清透 清爽 轻透 轻盈 清薄 轻薄 通透"]}
+{"label_id": "q0521", "label": "粉质颗粒小", "existing_expressions": ["粉体 粉质 粉感 颗粒"]}
+{"label_id": "q0522", "label": "亚洲皮", "existing_expressions": ["亚裔妆", "亚裔原生感", "小麦色底妆", "健康肤色", "古铜色", "原生底妆", "亚洲皮"]}
+{"label_id": "q0523", "label": "肤色", "existing_expressions": ["冷白皮", "粉白皮", "黄白皮", "黄一白", "黄二白", "自然黄皮", "黄黑皮", "黑黄皮", "健康小麦肌"]}
+{"label_id": "q0532", "label": "色号", "existing_expressions": ["象牙色", "象牙白", "瓷白色", "珍珠白", "粉白色", "自然色", "自然偏白", "暖肤色", "暖沙色", "蜂蜜色", "裸色", "小麦色", "古铜色", "深棕色", "奶杏色", "米白色", "粉肤色"]}
+{"label_id": "q0548", "label": "局部遮瑕", "existing_expressions": ["黑眼圈", "眼袋", "痘", "痘印 痘坑 痘疤", "长斑 色斑 斑点 雀斑", "红血丝 泛红"]}
+{"label_id": "q0554", "label": "修饰肤色", "existing_expressions": ["修饰", "矫正", "泛黄", "暗黄", "蜡黄", "提亮", "亮白", "不均", "不匀", "匀色", "匀净"]}
+{"label_id": "q0556", "label": "日常通勤妆", "existing_expressions": ["日常妆", "通勤妆", "职场妆", "淡妆", "快速出门", "自然提气色"]}
+{"label_id": "q0557", "label": "约会精致妆", "existing_expressions": ["约会妆", "精致妆", "纯欲妆", "心机妆", "提气色"]}
+{"label_id": "q0558", "label": "面试 / 证件妆", "existing_expressions": ["面试妆", "证件照妆", "职业妆"]}
+{"label_id": "q0559", "label": "新娘 / 晚宴妆", "existing_expressions": ["新娘妆", "晚宴妆", "隆重"]}
+{"label_id": "q0560", "label": "派对 / 舞台妆", "existing_expressions": ["派对妆", "舞台妆", "烟熏妆", "浓妆"]}
+{"label_id": "q0561", "label": "韩系妆", "existing_expressions": ["韩系妆", "韩女底妆"]}
+{"label_id": "q0562", "label": "纯欲妆", "existing_expressions": ["纯欲妆", "少女感"]}
+{"label_id": "q0563", "label": "轻泰妆", "existing_expressions": ["轻泰妆", "泰式妆容"]}
+{"label_id": "q0564", "label": "网感 / Doll 妆", "existing_expressions": ["网感妆", "Doll 妆", "玩偶妆"]}
+{"label_id": "q0565", "label": "欧美妆", "existing_expressions": ["欧美妆"]}
+{"label_id": "q0566", "label": "亚裔妆", "existing_expressions": ["亚裔妆", "亚裔原生感", "小麦色", "健康肤色", "原生底妆"]}
+{"label_id": "q0567", "label": "养肤护肤", "existing_expressions": ["养肤", "精华底妆", "护肤级", "含护肤成分", "修护", "养护肌肤", "边化妆边护肤"]}
+{"label_id": "q0568", "label": "提亮修颜", "existing_expressions": ["提亮", "修颜", "修正肤色", "均匀肤色", "去黄", "提亮暗沉", "匀肤", "改善气色"]}
+{"label_id": "q0569", "label": "轻盈轻薄", "existing_expressions": ["轻薄", "空气感", "轻盈", "无负担", "薄透", "轻透", "第二层肌肤"]}
+{"label_id": "q0570", "label": "不沾不转", "existing_expressions": ["不沾杯", "不转印", "不掉色", "不蹭口罩", "transfer-resistant", "防转移"]}
+{"label_id": "q0571", "label": "多效合一", "existing_expressions": ["多效合一", "二合一", "三合一", "隔离 + 粉底 + 遮瑕", "底妆 + 护肤", "素颜霜 + 粉底"]}
+{"label_id": "q0572", "label": "持久持妆", "existing_expressions": ["持久", "持妆久", "不脱妆", "全天候", "24 小时", "30 小时", "持妆一整天", "不暗沉", "不移位", "锁妆"]}
+{"label_id": "q0573", "label": "防水防汗", "existing_expressions": ["防水", "防汗", "抗汗", "防水防汗", "抗高温", "抗潮湿", "不晕染", "暴汗不脱妆", "游泳可用"]}
+{"label_id": "q0574", "label": "高遮瑕", "existing_expressions": ["高遮瑕", "巨遮瑕", "强遮瑕", "全遮瑕", "无瑕", "遮盖力强", "遮痘印斑点"]}
+{"label_id": "q0575", "label": "中等遮瑕", "existing_expressions": ["中等遮瑕", "自然遮瑕", "适度遮盖", "修饰瑕疵"]}
+{"label_id": "q0576", "label": "轻薄遮瑕", "existing_expressions": ["轻薄遮瑕", "轻度遮盖", "匀肤", "均匀肤色"]}
+{"label_id": "q0577", "label": "防晒防护", "existing_expressions": ["防晒", "SPF", "PA++", "UV 防护", "抗紫外线", "防晒指数", "隔离紫外线"]}
+{"label_id": "q0578", "label": "保湿服帖", "existing_expressions": ["保湿", "滋润", "水润", "不拔干", "不卡粉", "不卡纹", "服帖", "贴肤", "干皮友好"]}
+{"label_id": "q0579", "label": "温和低刺激", "existing_expressions": ["敏感肌适用", "不闷痘", "不闷肤", "无致痘", "低敏", "皮肤科测试", "无香料", "无酒精", "不堵塞毛孔"]}
+{"label_id": "q0580", "label": "养肤底妆", "existing_expressions": ["养肤底妆", "精华入妆", "妆养一体", "以妆养肤", "护肤级彩妆", "边化妆边护肤", "含精华成分"]}
+{"label_id": "q0581", "label": "纯净彩妆", "existing_expressions": ["纯净彩妆", "Clean Beauty", "无添加", "成分安全", "零残忍", "无动物实验", "无滑石粉", "无香精", "无酒精"]}
+{"label_id": "q0582", "label": "原生质感", "existing_expressions": ["原生感", "妈生好皮", "伪素颜", "清透裸妆", "还原原生好皮", "自然裸肌", "无粉感", "不假面"]}
+{"label_id": "q0583", "label": "功效彩妆", "existing_expressions": ["功效彩妆", "彩妆护肤品化", "护肤级底妆", "抗老底妆", "美白底妆", "紧致底妆", "淡斑底妆"]}
+{"label_id": "q0584", "label": "分肤定制", "existing_expressions": ["分肤定制", "干皮版 / 油皮版", "双线定制", "干皮专属", "油皮专属", "分肤质适配"]}
+{"label_id": "q0585", "label": "多效合一", "existing_expressions": ["多效合一", "五合一", "一支搞定", "精简流程", "一盒搞定", "隔离 + 粉底 + 遮瑕", "底妆 + 护肤 + 防晒"]}
+{"label_id": "q0586", "label": "持妆黑科技", "existing_expressions": ["锁色黑科技", "持妆膜技术", "粉体微卡扣", "空气网膜", "成膜技术", "锁妆科技", "双性持妆膜"]}
+{"label_id": "q0587", "label": "以油养肤底妆", "existing_expressions": ["以油养肤", "精华油入妆", "种籽精华油", "油脂养肤", "精油底妆"]}
+{"label_id": "q0588", "label": "抗老底妆", "existing_expressions": ["抗疲老", "紧致底妆", "肌肤普拉提", "抗衰底妆", "提升轮廓", "胶原底妆"]}
+{"label_id": "q0589", "label": "可持续美妆", "existing_expressions": ["环保包装", "可回收", "减塑", "可持续", "天然成分", "植物萃取"]}
+{"label_id": "q0590", "label": "水润 / 水感", "existing_expressions": ["水润", "水感", "爆水", "水润丝滑", "水当当", "补水感", "滋润水润"]}
+{"label_id": "q0591", "label": "丝滑 / 丝绸感", "existing_expressions": ["丝滑", "丝绸质地", "丝缎般", "顺滑", "丝绒感", "一抹即融"]}
+{"label_id": "q0592", "label": "轻薄 / 轻盈", "existing_expressions": ["轻薄", "轻盈", "无负担", "薄透", "空气感", "轻透", "第二层肌肤"]}
+{"label_id": "q0593", "label": "厚重 / 浓郁", "existing_expressions": ["厚重", "浓郁", "高遮瑕感", "稠厚", "饱满", "高密度粉体"]}
+{"label_id": "q0594", "label": "细腻 / 超细", "existing_expressions": ["粉质细腻", "细腻服帖", "超细粉体", "微米级粉体", "磨皮感"]}
+{"label_id": "q0595", "label": "油润 / 滋润", "existing_expressions": ["油润", "滋润", "滋养", "油脂感", "润养", "精油感", "以油养肤"]}
+{"label_id": "q0596", "label": "哑光 / 雾面", "existing_expressions": ["哑光", "雾面", "柔雾", "丝绒雾面", "高级雾感", "无油光", "柔焦雾面"]}
+{"label_id": "q0597", "label": "水光 / 光泽感", "existing_expressions": ["水光", "光泽感", "透亮", "高光肌", "玻璃光", "流金光泽", "爆水光"]}
+{"label_id": "q0598", "label": "奶油 / 缎光", "existing_expressions": ["奶油肌", "缎光", "柔焦", "自然光泽", "黄油肌", "柔光感", "奶润光泽"]}
+{"label_id": "q0599", "label": "微闪 / 珠光", "existing_expressions": ["微闪", "珠光", "细闪", "闪粉", "光泽颗粒", "碎钻感"]}
+{"label_id": "q0600", "label": "品牌提及", "existing_expressions": ["珀莱雅", "雅诗兰黛", "兰蔻", "欧莱雅", "玉兰油OLAY", "薇诺娜", "HFP", "至本", "瑷尔博士", "润百颜", "华熙", "修丽可", "赫莲娜", "SK-II", "SKII", "海蓝之谜", "资生堂", "肌肤之钥CPB", "雅漾", "理肤泉", "娇韵诗", "科颜氏", "自然堂", "百雀羚", "韩束", "完美日记", "花西子", "谷雨", "溪木源", "橘朵", "彩棠"]}
+{"label_id": "q0601", "label": "国货品牌", "existing_expressions": ["国货", "国妆", "国产", "本土品牌", "新锐国货", "老牌国货", "国货之光"]}
+{"label_id": "q0602", "label": "国际大牌/贵妇", "existing_expressions": ["大牌", "贵妇", "专柜", "国际大牌", "高端线", "奢护", "贵妇品牌"]}
+{"label_id": "q0603", "label": "平价/性价比", "existing_expressions": ["平价", "性价比", "便宜大碗", "学生党", "白菜价", "划算", "物美价廉", "平价替代"]}
+{"label_id": "q0604", "label": "双抗精华", "existing_expressions": ["双抗", "双抗精华", "早C晚A", "早C晚A精华", "早C晚A组合"]}
+{"label_id": "q0605", "label": "红宝石系列", "existing_expressions": ["红宝石", "红宝石精华", "红宝石面霜", "红宝石水", "红宝石霜"]}
+{"label_id": "q0606", "label": "源力系列", "existing_expressions": ["源力", "源力精华", "源力霜", "源力水"]}
+{"label_id": "q0607", "label": "弹力系列", "existing_expressions": ["弹力", "弹力精华", "弹力水", "弹力霜"]}
+{"label_id": "q0608", "label": "美白系列", "existing_expressions": ["光感", "光感精华", "小白灯", "雪光", "雪光瓶", "光透白"]}
+{"label_id": "q0609", "label": "全脸", "existing_expressions": ["全脸", "整脸", "脸部", "面部", "脸颊", "T区", "全脸涂", "脸上"]}
+{"label_id": "q0610", "label": "眼周", "existing_expressions": ["眼周", "眼尾", "眼角", "眼下", "眼眶", "眼睛周围", "眼部", "眼周涂"]}
+{"label_id": "q0611", "label": "颈部", "existing_expressions": ["颈部", "脖子", "颈纹", "下颌线", "颈侧"]}
+{"label_id": "q0612", "label": "唇部", "existing_expressions": ["唇部", "嘴唇", "嘴角", "唇周", "唇部涂"]}
+{"label_id": "q0613", "label": "手部", "existing_expressions": ["手部", "手背", "手指", "护手", "手霜"]}
+{"label_id": "q0614", "label": "学生党/年轻", "existing_expressions": ["学生党", "20岁", "25岁", "年轻", "Z世代", "00后", "刚成年"]}
+{"label_id": "q0615", "label": "熟龄/妈妈", "existing_expressions": ["熟龄", "30+", "35+", "40+", "妈妈", "宝妈", "中年", "初老"]}
+{"label_id": "q0616", "label": "男性", "existing_expressions": ["男生", "男士", "男人", "男友", "老公", "他", "兄弟"]}
+{"label_id": "q0617", "label": "敏感肌", "existing_expressions": ["敏感肌", "敏感皮肤", "易敏", "泛红", "红血丝", "屏障受损"]}
+{"label_id": "q0618", "label": "孕哺期", "existing_expressions": ["孕期", "孕妇", "哺乳期", "备孕", "准妈妈", "怀孕"]}
+{"label_id": "q0619", "label": "平替对比", "existing_expressions": ["平替", "平价替代", "替代", "比XX好", "不如XX", "和XX比", "对比", "测评对比", "踩雷对比"]}
+{"label_id": "q0620", "label": "复购/弃用", "existing_expressions": ["复购", "回购", "空瓶", "弃用", "换", "踩雷后换", "拔草"]}
+{"label_id": "q0621", "label": "求推荐", "existing_expressions": ["求推荐", "有没有推荐", "推荐一下", "种草求", "求安利", "求抄作业", "求链接"]}
+{"label_id": "q0622", "label": "自用好物分享", "existing_expressions": ["自用", "无限回购", "墙裂推荐", "安利", "真心推荐", "宝藏", "挖到宝", "真心好用"]}
+{"label_id": "q0623", "label": "物流时效", "existing_expressions": ["物流", "发货", "快递", "到货", "物流慢", "发货快", "顺丰", "包邮"]}
+{"label_id": "q0624", "label": "客服服务", "existing_expressions": ["客服", "售后", "态度差", "回复慢", "服务好", "人工客服", "售后推诿"]}
+{"label_id": "q0625", "label": "咨询问答", "existing_expressions": ["怎么用", "怎么选", "可以用吗", "孕妇能用吗", "会烂脸吗", "求问", "咨询", "解答"]}
+{"label_id": "q0626", "label": "正品/假货", "existing_expressions": ["正品", "假货", "真假", "高仿", "防伪", "专柜验", "验真"]}
+{"label_id": "q0627", "label": "保质期/效期", "existing_expressions": ["保质期", "过期", "临期", "效期", "生产日期", "批号", "日期"]}
+{"label_id": "q0628", "label": "变质/异味", "existing_expressions": ["变质", "水油分离", "结块", "变色", "异味", "臭味", "酸败", "长毛"]}
+{"label_id": "q0629", "label": "明星代言", "existing_expressions": ["代言", "代言人", "代言品牌", "品牌大使", "形象大使", "挚友", "推广官", "代言人官宣"]}
+{"label_id": "q0630", "label": "明星同款", "existing_expressions": ["同款", "明星同款", "爱豆同款", "偶像同款", "明星推荐"]}
+{"label_id": "q0631", "label": "明星合作", "existing_expressions": ["合作", "联名", "合作款", "明星合作", "艺人合作"]}
+{"label_id": "q0632", "label": "IP联名", "existing_expressions": ["联名", "IP联名", "IP合作", "联名款", "限定联名"]}
+{"label_id": "q0633", "label": "动漫联名", "existing_expressions": ["动漫联名", "动画联名", "漫画联名", "二次元联名", "动漫合作"]}
+{"label_id": "q0634", "label": "游戏联名", "existing_expressions": ["游戏联名", "手游联名", "电竞联名", "游戏合作", "游戏款"]}
+{"label_id": "q0635", "label": "品牌联名", "existing_expressions": ["品牌联名", "联名品牌", "品牌合作", "双品牌联名", "跨界联名"]}
+{"label_id": "q0636", "label": "跨界合作", "existing_expressions": ["跨界", "跨界合作", "跨界联名", "跨界款", "跨界品牌"]}
+{"label_id": "q0637", "label": "跨界营销", "existing_expressions": ["跨界营销", "跨界活动", "跨界推广", "跨界宣传"]}
+{"label_id": "q0638", "label": "快闪店", "existing_expressions": ["快闪店", "快闪", "快闪活动", "pop-up", "popup"]}
+{"label_id": "q0639", "label": "快闪活动", "existing_expressions": ["快闪活动", "快闪体验", "快闪打卡", "快闪展览"]}
+{"label_id": "q0640", "label": "慢闪店", "existing_expressions": ["慢闪店", "慢闪", "慢闪活动", "slow pop-up"]}
+{"label_id": "q0641", "label": "慢闪活动", "existing_expressions": ["慢闪活动", "慢闪体验", "慢闪打卡", "慢闪展览"]}
+{"label_id": "q0642", "label": "线下活动", "existing_expressions": ["线下活动", "线下打卡", "线下体验", "线下展览"]}
+{"label_id": "q0643", "label": "发布会", "existing_expressions": ["发布会", "新品发布", "品牌发布会", "产品发布会"]}
+{"label_id": "q0644", "label": "体验店", "existing_expressions": ["体验店", "旗舰店", "概念店", "体验中心"]}
+{"label_id": "q0645", "label": "限定款", "existing_expressions": ["限定", "限定款", "限量", "限量款", "限定版"]}
+{"label_id": "q0646", "label": "节日限定", "existing_expressions": ["节日限定", "圣诞限定", "新年限定", "情人节限定", "七夕限定"]}
+{"label_id": "q0647", "label": "季节限定", "existing_expressions": ["季节限定", "春季限定", "夏季限定", "秋季限定", "冬季限定"]}
+{"label_id": "q0648", "label": "直播", "existing_expressions": ["直播", "直播间", "直播带货", "直播推荐", "直播种草"]}
+{"label_id": "q0649", "label": "主播推荐", "existing_expressions": ["主播", "主播推荐", "主播种草", "主播同款", "直播间同款"]}
+{"label_id": "q0650", "label": "学生党", "existing_expressions": ["学生", "学生党", "大学生", "高中生", "初中生", "校园"]}
+{"label_id": "q0651", "label": "年轻女生", "existing_expressions": ["年轻", "少女", "女生", "小姐姐", "妹妹", "学生妹"]}
+{"label_id": "q0652", "label": "熟龄女性", "existing_expressions": ["熟龄", "妈妈", "宝妈", "中年", "阿姨", "姐姐"]}
+{"label_id": "q0653", "label": "职场新人", "existing_expressions": ["职场", "上班族", "打工人", "职场新人", "白领"]}
+{"label_id": "q0654", "label": "30+女性", "existing_expressions": ["30+", "三十加", "30岁", "三十岁", "轻熟龄"]}
+{"label_id": "q0655", "label": "40+女性", "existing_expressions": ["40+", "四十加", "40岁", "四十岁", "熟龄肌"]}
+{"label_id": "q0656", "label": "女性", "existing_expressions": ["女生", "女性", "女士", "妹子", "小姐姐"]}
+{"label_id": "q0657", "label": "男性", "existing_expressions": ["男生", "男性", "男士", "小哥哥", "兄弟"]}
+{"label_id": "q0658", "label": "中性", "existing_expressions": ["中性", "无性别", "男女通用", "通用款", "男女可用", "男女都可用", "男女均可用", "男女都能用", "男女均能用"]}
+{"label_id": "q0659", "label": "一线城市", "existing_expressions": ["一线城市", "北上广深", "北京", "上海", "广州", "深圳"]}
+{"label_id": "q0660", "label": "新一线城市", "existing_expressions": ["新一线", "杭州", "成都", "重庆", "武汉", "西安", "苏州"]}
+{"label_id": "q0661", "label": "二线城市", "existing_expressions": ["二线", "二线城市", "省会"]}
+{"label_id": "q0662", "label": "三四线城市", "existing_expressions": ["三四线", "下沉市场", "小城市", "县城", "乡镇"]}
+{"label_id": "q0663", "label": "海外", "existing_expressions": ["海外", "国外", "欧美", "日韩", "海外党"]}
+{"label_id": "q0664", "label": "平价学生党", "existing_expressions": ["平价", "学生党", "性价比", "便宜", "大碗", "白菜价"]}
+{"label_id": "q0665", "label": "中端白领", "existing_expressions": ["中端", "白领", "上班族", "中等价位", "轻奢"]}
+{"label_id": "q0666", "label": "高端贵妇", "existing_expressions": ["高端", "贵妇", "奢侈", "大牌", "贵价", "贵妇级"]}
+{"label_id": "q0667", "label": "性价比", "existing_expressions": ["性价比", "划算", "值", "值得", "性价比高", "平价好用"]}
+{"label_id": "q0668", "label": "贵价", "existing_expressions": ["贵", "贵价", "昂贵", "奢侈", "高端", "大牌"]}
+{"label_id": "q0669", "label": "敏感肌", "existing_expressions": ["敏感肌", "敏感", "易敏", "敏皮", "屏障受损"]}
+{"label_id": "q0670", "label": "油痘肌", "existing_expressions": ["油痘肌", "油皮", "痘痘肌", "出油", "长痘"]}
+{"label_id": "q0671", "label": "干皮", "existing_expressions": ["干皮", "干燥", "起皮", "脱皮", "缺水"]}
+{"label_id": "q0672", "label": "熟龄肌", "existing_expressions": ["熟龄肌", "抗老", "抗皱", "初老", "衰老"]}
+{"label_id": "q0673", "label": "种草", "existing_expressions": ["种草", "安利", "好物推荐", "值得买", "必入", "真香", "闭眼入", "人手一支", "年度爱用", "回购", "冲就完了", "买它"]}
+{"label_id": "q0674", "label": "测评", "existing_expressions": ["测评", "实测", "亲测", "横评", "对比测评", "开箱测评", "深度测评", "使用报告", "评测"]}
+{"label_id": "q0675", "label": "吐槽", "existing_expressions": ["吐槽", "避雷", "踩雷", "千万别买", "翻车", "拔草", "差评", "后悔买", "闲置", "智商税", "浪费钱", "避坑"]}
+{"label_id": "q0676", "label": "科普", "existing_expressions": ["科普", "成分解析", "成分党", "干货", "护肤知识", "原理", "拆解", "分析", "小课堂", "成分表"]}
+{"label_id": "q0677", "label": "日常分享", "existing_expressions": ["日常", "分享", "记录", "开箱", "空瓶记", "护肤流程", "今日护肤", "碎碎念", "routine"]}
+{"label_id": "q0678", "label": "软广", "existing_expressions": ["软广", "恰饭", "广告", "推广", "植入", "暗广", "推广文", "营销号"]}

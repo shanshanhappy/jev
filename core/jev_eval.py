@@ -277,7 +277,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--scheme', default='', help='方案名, 对应文件名 {sample}__{scheme}__{mode}.jsonl; 空=全部')
     ap.add_argument('--mode', default='',
-                    help='问法粒度; 空=全部。取值 A1|A2|cascade|similarity|hybrid|speculative'
+                    help='问法粒度; 空=全部。取值 A1|A2|cascade|similarity|hybrid_rag|hybrid|speculative'
                          ' (B 方案是 scheme=B mode=A2)。与 --scheme 是两个维度, 详见 core/README.md §九')
     ap.add_argument('--tau', type=float, default=None,
                     help='命中阈值; 不填则读 tools/raw_to_csv.py 的 DEFAULT_THRESHOLD(%.2f)' % _TAU_DEFAULT)
@@ -437,18 +437,32 @@ def main():
             if not L:
                 continue
             pred_pairs.add((s, i))
-            segname, pos, kw = find_evidence(txt, segs, L['hits'])
-            if pos is None:
-                emo, esrc, ev_f, ev_t = '不适用', '未定位', '语义命中未定位', ''
-            else:
-                emo = sentiment(txt, pos, kw, L)
-                esrc = '窗口定位'
+            qid = 'q%04d' % i
+            direct_info = (meta.get('hybrid_rag', {}) or {}).get('direct_labels', {}).get(qid)
+            row_model, row_api = mr.get('model', ''), api
+            if direct_info:
+                # 强正则证据必须使用“未否定的那个精确命中位置”，不能回搜到另一个否定位置。
+                pos = direct_info.get('position')
+                kw = L['label']
+                segname = next((name for name, start, end in segs
+                                if pos is not None and start <= pos < end), None)
+                emo, esrc = '不适用', '强正则直接命中'
                 ev_f = FIELD_MAP.get(segname, '')
-                ev_t = re.sub(r'\s+', ' ', txt[max(0, pos - 30): pos + len(kw) + 30]).strip()
+                ev_t = re.sub(r'\s+', ' ', direct_info.get('evidence') or '').strip()
+                row_model, row_api = 'local-strong-regex', '本地强正则'
+            else:
+                segname, pos, kw = find_evidence(txt, segs, L['hits'])
+                if pos is None:
+                    emo, esrc, ev_f, ev_t = '不适用', '未定位', '语义命中未定位', ''
+                else:
+                    emo = sentiment(txt, pos, kw, L)
+                    esrc = '窗口定位'
+                    ev_f = FIELD_MAP.get(segname, '')
+                    ev_t = re.sub(r'\s+', ' ', txt[max(0, pos - 30): pos + len(kw) + 30]).strip()
             emo_src[esrc] += 1
             ws.writerow([s, meta.get('site_name', ''), i + 1, tid.get(i, ''), L['cat'], L['sub'], L['label'],
                          '未提取', '未提取', emo, ev_f, ev_t, '%.3f' % P[i], tau, esrc,
-                         mr.get('model', ''), api])
+                         row_model, row_api])
         names = [ (qgroups.get(i) or labels[i])['label'] for i in hits if (i in qgroups or i in labels)]
         part = '、'.join(names[:8]) + ('；另%d项见明细' % (len(names) - 8) if len(names) > 8 else '')
         wu.writerow([s, meta.get('site_name', ''), meta.get('id', ''), meta.get('csv_row_no', ''),

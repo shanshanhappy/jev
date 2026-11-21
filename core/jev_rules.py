@@ -69,6 +69,51 @@ def _hit_negated(text, p, kw, excls, near):
     return any(ex in text[max(0, p - near): p + len(kw) + near] for ex in excls)
 
 
+def screen_label_detail(text, L, scope='window'):
+    """正则粗筛 + 可追溯证据；布尔口径与 B 方案完全一致。"""
+    detail = {'matched': False, 'hit': '', 'position': None, 'evidence': '',
+              'and_hit': '', 'scope': scope}
+    if not L['hits']:
+        return detail
+    if L['ands']:
+        detail['and_hit'] = next((a for a in L['ands'] if a in text), '')
+        if not detail['and_hit']:
+            return detail
+
+    def accept(kw, pos):
+        near = L.get('near') or 15
+        detail.update({'matched': True, 'hit': kw, 'position': pos,
+                       'evidence': text[max(0, pos - near):pos + len(kw) + near]})
+        return True
+
+    if scope == 'off' or not L['excls']:
+        for kw in L['hits']:
+            pos = text.find(kw)
+            if pos >= 0:
+                accept(kw, pos)
+                break
+        return detail
+    if scope == 'full':
+        for ex in L['excls']:
+            if ex in text:
+                return detail
+        for kw in L['hits']:
+            pos = text.find(kw)
+            if pos >= 0:
+                accept(kw, pos)
+                break
+        return detail
+    near = L.get('near') or 15
+    for kw in L['hits']:
+        pos = text.find(kw)
+        while pos >= 0:
+            if not _hit_negated(text, pos, kw, L['excls'], near):
+                accept(kw, pos)
+                return detail
+            pos = text.find(kw, pos + 1)
+    return detail
+
+
 def screen_label(text, L, scope='window'):
     """粗筛: 只要有一个命中词出现在**非否定**语境里, 就算候选标签。
 
@@ -76,31 +121,9 @@ def screen_label(text, L, scope='window'):
     scope='full'   全文任一处出现排除词即判死 —— 旧行为, 仅用于复现/对照
     scope='off'    不看排除词
 
-    旧版(full)的问题: 362 个标签共用同一套通用否定词(不/没/没有/没用...),
-    做全文匹配时, 中文帖子几乎都含"不"字 -> 候选被大面积误杀。
-    实测 100 条: 每帖送问 39.9 -> 22.6, 共误杀 1,731 个候选标签。
-
     text 应传"实际送进模型的文本"(截断后的), 保证粗筛命中的词模型看得见。
     """
-    if not L['hits']:
-        return False
-    if L['ands'] and not any(a in text for a in L['ands']):
-        return False
-    if scope == 'off' or not L['excls']:
-        return any(h in text for h in L['hits'])
-    if scope == 'full':
-        for ex in L['excls']:
-            if ex in text:
-                return False
-        return any(h in text for h in L['hits'])
-    near = L.get('near') or 15
-    for kw in L['hits']:
-        p = text.find(kw)
-        while p >= 0:
-            if not _hit_negated(text, p, kw, L['excls'], near):
-                return True
-            p = text.find(kw, p + 1)
-    return False
+    return screen_label_detail(text, L, scope)['matched']
 
 
 QSTYLES = ('v1', 'v2', 'v3', 'v4')
